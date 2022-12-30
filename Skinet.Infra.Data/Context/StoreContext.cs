@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Skinet.Domain.Entities;
+using Skinet.Domain.Product;
 
 namespace Skinet.Infra.Data.Context
 {

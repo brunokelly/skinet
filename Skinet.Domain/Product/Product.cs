@@ -1,4 +1,4 @@
-namespace Skinet.Domain.Entities
+namespace Skinet.Domain.Product
 {
     public class Product
     {

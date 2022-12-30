@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

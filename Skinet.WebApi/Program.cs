@@ -1,14 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Skinet.Domain.Product;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Infra.Data.Context;
+using Skinet.Infra.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<INotification, Notification>();
-ConfigureServices(builder);
+ConfigureServices(builder.Services);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,8 +30,9 @@ app.MapControllers();
 
 app.Run();
 
-void ConfigureServices(WebApplicationBuilder builder)
+void ConfigureServices(IServiceCollection services)
 {
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    builder.Services.AddDbContext<StoreContext>();
+    services.AddDbContext<StoreContext>();
+    services.AddScoped<INotification, Notification>();
+    services.AddScoped<IProductRepository, ProductRepository>();
 }
