@@ -11,7 +11,7 @@ using Skinet.Infra.Data.Context;
 namespace Skinet.Infra.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20221230163933_InitialCreate")]
+    [Migration("20221230212403_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -28,10 +28,12 @@ namespace Skinet.Infra.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(180)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PictureUrl")
@@ -39,25 +41,19 @@ namespace Skinet.Infra.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductBrandId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductBrandId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("ProductBrandId1")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProductTypeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("ProductTypeId1")
+                    b.Property<Guid>("ProductTypeId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductBrandId1");
+                    b.HasIndex("ProductBrandId");
 
-                    b.HasIndex("ProductTypeId1");
+                    b.HasIndex("ProductTypeId");
 
                     b.ToTable("Products");
                 });
@@ -96,13 +92,13 @@ namespace Skinet.Infra.Data.Migrations
                 {
                     b.HasOne("Skinet.Domain.Product.ProductBrand", "ProductBrand")
                         .WithMany()
-                        .HasForeignKey("ProductBrandId1")
+                        .HasForeignKey("ProductBrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Skinet.Domain.Product.ProductType", "ProductType")
                         .WithMany()
-                        .HasForeignKey("ProductTypeId1")
+                        .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
