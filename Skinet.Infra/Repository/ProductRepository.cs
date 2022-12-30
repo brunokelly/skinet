@@ -1,17 +1,26 @@
+using Microsoft.EntityFrameworkCore;
 using Skinet.Domain.Product;
+using Skinet.Infra.Data.Context;
 
 namespace Skinet.Infra.Repository
 {
   public class ProductRepository : IProductRepository
   {
-    public Task<Product> GertProductByIdAsync()
+    private readonly StoreContext _context;
+
+    public ProductRepository(StoreContext context)
     {
-      throw new NotImplementedException();
+      _context = context;
     }
 
-    public Task<IReadOnlyList<Product>> GetProductsAsync()
+    public async Task<Product> GertProductByIdAsync(int id)
     {
-      throw new NotImplementedException();
+      return await _context.Products.FindAsync(id);
+    }
+
+    public async Task<IReadOnlyList<Product>> GetProductsAsync()
+    {
+      return await _context.Products.ToListAsync();
     }
   }
 }

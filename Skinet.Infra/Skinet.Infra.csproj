@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
+    <ProjectReference Include="..\Skinet.Infra.Data\Skinet.Infra.Data.csproj" />
+  
   </ItemGroup>
 
 </Project>
