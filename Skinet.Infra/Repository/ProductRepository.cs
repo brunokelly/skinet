@@ -4,23 +4,26 @@ using Skinet.Infra.Data.Context;
 
 namespace Skinet.Infra.Repository
 {
-  public class ProductRepository : IProductRepository
-  {
-    private readonly StoreContext _context;
-
-    public ProductRepository(StoreContext context)
+    public class ProductRepository : IProductRepository
     {
-      _context = context;
-    }
+        private readonly StoreContext _context;
 
-    public async Task<Product> GertProductByIdAsync(int id)
-    {
-      return await _context.Products.FindAsync(id);
-    }
+        public ProductRepository(StoreContext context)
+        {
+            _context = context;
+        }
 
-    public async Task<IReadOnlyList<Product>> GetProductsAsync()
-    {
-      return await _context.Products.ToListAsync();
+        public async Task<Product> GertProductByIdAsync(int id)
+        {
+            return await _context.Products.FindAsync(id);
+        }
+
+        public async Task<IReadOnlyList<Product>> GetProductsAsync()
+        {
+            return await _context.Products
+                .Include(x => x.ProductBrand)
+                .Include(x => x.ProductType)
+                .ToListAsync();
+        }
     }
-  }
 }

@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using Skinet.Domain.Product;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Infra.Data.Context;
+using Skinet.Infra.Data.SeedData;
 using Skinet.Infra.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,21 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+
+    var context = services.GetRequiredService<StoreContext>();
+    var result = await context.Database.GetPendingMigrationsAsync();
+    if (result.Any())
+    {
+        await context.Database.MigrateAsync();
+    }
+    await StoreContextSeed.SeedAsync(context, loggerFactory);
+
+}
 
 app.Run();
 

@@ -4,6 +4,12 @@ namespace Skinet.Domain.Product
 {
     public class ProductBrand : Entity
     {
-        public string Name { get; set; }
+        public ProductBrand(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; private set; }
+
     }
 }

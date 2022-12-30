@@ -1,28 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
+using Skinet.Domain.Product;
 using Skinet.Domain.SeedOfWork;
 
 namespace Skinet.WebApi.Controllers
 {
-  [ApiController]
-  [Route("api/[controller")]
-  public class ProductsController : BaseController
-  {
-    private readonly ILogger<ProductsController> _logger;
-    public ProductsController(ILogger<ProductsController> logger, INotification notification) : base(notification)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProductsController : BaseController
     {
-      _logger = logger;
-    }
+        private readonly ILogger<ProductsController> _logger;
+        private readonly IProductRepository _productRepository;
 
-    [HttpGet]
-    public IActionResult GetProducts()
-    {
-      return Response("Product");
-    }
+        public ProductsController(ILogger<ProductsController> logger, INotification notification, IProductRepository productRepository) : base(notification)
+        {
+            _logger = logger;
+            _productRepository = productRepository;
+        }
 
-    [HttpGet("{id}")]
-    public IActionResult GetProduct(int id)
-    {
-      return Response("Product");
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            return Response(await _productRepository.GetProductsAsync());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            return Response("Product");
+        }
     }
-  }
 }
