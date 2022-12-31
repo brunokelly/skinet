@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Skinet.Domain.Product;
+using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
+using Skinet.Infra;
 using Skinet.Infra.Data.Context;
 using Skinet.Infra.Data.SeedData;
 using Skinet.Infra.Repository;
+using Skinet.Infra.Repository.ProductRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -20,8 +22,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-  app.UseSwagger();
-  app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -49,7 +51,8 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-  services.AddDbContext<StoreContext>();
-  services.AddScoped<INotification, Notification>();
-  services.AddScoped<IProductRepository, ProductRepository>();
+    services.AddDbContext<StoreContext>();
+    services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+    services.AddScoped<INotification, Notification>();
+    services.AddScoped<IProductRepository, ProductRepository>();
 }

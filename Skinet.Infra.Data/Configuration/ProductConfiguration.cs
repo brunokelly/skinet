@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Skinet.Domain.Product;
+using Skinet.Domain.ProductModel;
 
 namespace Skinet.Infra.Data.Configuration
 {

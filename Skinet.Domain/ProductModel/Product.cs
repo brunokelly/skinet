@@ -1,17 +1,25 @@
 using Skinet.Domain.Common;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Skinet.Domain.Product
+namespace Skinet.Domain.ProductModel
 {
     public class Product : Entity
     {
-        public Product(string name, string description, decimal price, string pictureUrl)
+        public Product()
+        {
+
+        }
+
+        public Product(string name, string description, decimal price, 
+            string pictureUrl, ProductType productType, ProductBrand productBrand)
         {
             Name = name;
             Description = description;
             Price = price;
             PictureUrl = pictureUrl;
+            ProductBrand = productBrand;
+            ProductType = productType;
         }
+
         public string Name { get; private set; }
         public string Description { get; private set; }
         public decimal Price { get; private set; }

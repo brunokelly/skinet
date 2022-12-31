@@ -1,7 +1,7 @@
 
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Skinet.Domain.Product;
+using Skinet.Domain.ProductModel;
 using Skinet.Infra.Data.Context;
 
 namespace Skinet.Infra.Data.SeedData

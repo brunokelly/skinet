@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Skinet.Domain.Product;
+using Skinet.Domain.ProductModel;
 
 namespace Skinet.Infra.Data.Context
 {

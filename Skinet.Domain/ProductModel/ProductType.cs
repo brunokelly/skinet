@@ -1,6 +1,6 @@
 ﻿using Skinet.Domain.Common;
 
-namespace Skinet.Domain.Product
+namespace Skinet.Domain.ProductModel
 {
     public class ProductType : Entity
     {

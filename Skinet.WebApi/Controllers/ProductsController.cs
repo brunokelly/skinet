@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Skinet.Domain.Product;
+using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
+using Skinet.Domain.Specification;
+using Skinet.Infra;
 
 namespace Skinet.WebApi.Controllers
 {
@@ -8,37 +10,43 @@ namespace Skinet.WebApi.Controllers
     [Route("api/[controller]")]
     public class ProductsController : BaseController
     {
-        private readonly ILogger<ProductsController> _logger;
-        private readonly IProductRepository _productRepository;
+        private readonly IBaseRepository<Product> _productRepository;
+        private readonly IBaseRepository<ProductBrand> _productBrandRepository;
+        private readonly IBaseRepository<ProductType> _productTypeRepository;
 
-        public ProductsController(ILogger<ProductsController> logger, INotification notification, IProductRepository productRepository) : base(notification)
+        public ProductsController(INotification notification, IBaseRepository<Product> productRepository,
+            IBaseRepository<ProductBrand> productBrandRepository,
+            IBaseRepository<ProductType> productTypeRepository) : base(notification)
         {
-            _logger = logger;
             _productRepository = productRepository;
+            _productBrandRepository = productBrandRepository;
+            _productTypeRepository = productTypeRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            return Response(await _productRepository.GetProductsAsync());
+            var spec = new ProductsWithTypeAndBrandsSpecification();
+
+            return Response(await _productRepository.ListAsync(spec));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            return Response(await _productRepository.GetProductByIdAsync(id));
+            return Response(await _productRepository.GetByIdAsync(id));
         }
 
         [HttpGet("brands")]
         public async Task<IActionResult> GetBrands()
         {
-            return Response(await _productRepository.GetProductBrandsAsync());
+            return Response(await _productBrandRepository.GetListAllAsync());
         }
 
         [HttpGet("types")]
         public async Task<IActionResult> GetTypes()
         {
-            return Response(await _productRepository.GetProductTypesAsync());
+            return Response(await _productTypeRepository.GetListAllAsync());
         }
     }
 }
