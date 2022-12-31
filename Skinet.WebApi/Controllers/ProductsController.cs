@@ -26,7 +26,19 @@ namespace Skinet.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            return Response("Product");
+            return Response(await _productRepository.GetProductByIdAsync(id));
+        }
+
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetBrands()
+        {
+            return Response(await _productRepository.GetProductBrandsAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<IActionResult> GetTypes()
+        {
+            return Response(await _productRepository.GetProductTypesAsync());
         }
     }
 }

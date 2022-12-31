@@ -13,17 +13,33 @@ namespace Skinet.Infra.Repository
             _context = context;
         }
 
-        public async Task<Product> GertProductByIdAsync(int id)
+        public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
         {
-            return await _context.Products.FindAsync(id);
+            return await _context.ProductBrands.ToListAsync();
+        }
+
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await GetAll().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return await _context.Products
+            return await GetAll().ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<ProductType>> GetProductTypesAsync()
+        {
+            return await _context.ProductTypes.ToListAsync();
+        }
+
+        private IQueryable<Product> GetAll()
+        {
+            return _context.Products
+                .AsNoTracking()
                 .Include(x => x.ProductBrand)
                 .Include(x => x.ProductType)
-                .ToListAsync();
+                .AsQueryable();
         }
     }
 }
