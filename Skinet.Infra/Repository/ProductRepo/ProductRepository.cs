@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Skinet.Domain.ProductModel;
+using Skinet.Domain.ProductModel.Repository;
 using Skinet.Infra.Data.Context;
 
 namespace Skinet.Infra.Repository.ProductRepo

@@ -1,4 +1,4 @@
-namespace Skinet.Domain.ProductModel
+namespace Skinet.Domain.ProductModel.Repository
 {
     public interface IProductRepository
     {

@@ -1,5 +1,5 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Skinet.Application.Product.Models.Response;
 using Skinet.Application.ProductModel.Response;
 using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
@@ -8,8 +8,6 @@ using Skinet.Infra;
 
 namespace Skinet.WebApi.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
     public class ProductsController : BaseController
     {
         private readonly IBaseRepository<Product> _productRepository;
@@ -26,18 +24,12 @@ namespace Skinet.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts(string? sort, int? brandId, int? typeId)
         {
-            var spec = new ProductsWithTypeAndBrandsSpecification();
+            var spec = new ProductsWithTypeAndBrandsSpecification(sort, brandId, typeId);
             var response = new List<ProductResponse>();
 
-            var result = await _productRepository.ListAsync(spec);
-            foreach(var x in result)
-            {
-                response.Add((ProductResponse)x);
-            }
-
-            return Response(response);
+            return Response((ProductListResponse)await _productRepository.ListAsync(spec));
         }
 
         [HttpGet("{id}")]
@@ -45,7 +37,7 @@ namespace Skinet.WebApi.Controllers
         {
             var spec = new ProductsWithTypeAndBrandsSpecification(id);
 
-            return Response(await _productRepository.GetEntityWithSpec(spec));
+            return Response((ProductResponse)await _productRepository.GetEntityWithSpec(spec));
         }
 
         [HttpGet("brands")]

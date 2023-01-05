@@ -1,10 +1,4 @@
 ﻿using Skinet.Application.Common;
-using Skinet.Domain.ProductModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Skinet.Application.ProductModel.Response
 {
@@ -19,7 +13,7 @@ namespace Skinet.Application.ProductModel.Response
         public string ProductBrand { get; set; }
 
 
-        public static implicit operator ProductResponse(Product product)
+        public static implicit operator ProductResponse(Skinet.Domain.ProductModel.Product product)
         {
             if (product == null) return new ProductResponse();
 

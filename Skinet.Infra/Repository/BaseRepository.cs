@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Skinet.Domain.Common;
+using Skinet.Domain.SeedOfWork;
 using Skinet.Domain.Specifications;
 using Skinet.Infra.Data;
 using Skinet.Infra.Data.Context;
@@ -9,10 +10,12 @@ namespace Skinet.Infra.Repository
     public class BaseRepository<T> : IBaseRepository<T> where T : Entity
     {
         private readonly StoreContext _context;
+        private readonly INotification _notification;
 
-        public BaseRepository(StoreContext context)
+        public BaseRepository(StoreContext context, INotification notification)
         {
             _context = context;
+            _notification = notification;
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -27,10 +30,15 @@ namespace Skinet.Infra.Repository
 
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
-            return await ApplySpecification(spec).FirstOrDefaultAsync();
+            var result = await ApplySpecification(spec).FirstOrDefaultAsync();
+
+            if (result == null)
+                _notification.AddNotification("Product", "No product found", NotificationModel.ENotificationType.NotFound);
+
+            return result;
         }
 
-        public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+        public async Task<List<T>> ListAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();
         }
