@@ -1,36 +1,63 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Skinet.Application.Common;
+using Skinet.Application.ProductModel.Response;
+using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
+using Skinet.Domain.Specification;
+using Skinet.Infra;
 
 namespace Skinet.WebApi.Controllers
 {
-  [ApiController]
-  [Route("api/[controller")]
-  public class ProductsController : BaseController
-  {
-    private readonly ILogger<ProductsController> _logger;
-
-    public ProductsController(ILogger<ProductsController> logger, INotification notification) : base(notification)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProductsController : BaseController
     {
-      _logger = logger;
-    }
+        private readonly IBaseRepository<Product> _productRepository;
+        private readonly IBaseRepository<ProductBrand> _productBrandRepository;
+        private readonly IBaseRepository<ProductType> _productTypeRepository;
 
-    [HttpGet]
-    public IActionResult GetProducts()
-    {
-        return Response("Product");
-    }
+        public ProductsController(INotification notification, IBaseRepository<Product> productRepository,
+            IBaseRepository<ProductBrand> productBrandRepository,
+            IBaseRepository<ProductType> productTypeRepository) : base(notification)
+        {
+            _productRepository = productRepository;
+            _productBrandRepository = productBrandRepository;
+            _productTypeRepository = productTypeRepository;
+        }
 
-    [HttpGet("{id}")]
-    public IActionResult GetProduct(int id)
-    {
-        return Response("Product");
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var spec = new ProductsWithTypeAndBrandsSpecification();
+            var response = new List<ProductResponse>();
+
+            var result = await _productRepository.ListAsync(spec);
+            foreach(var x in result)
+            {
+                response.Add((ProductResponse)x);
+            }
+
+            return Response(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var spec = new ProductsWithTypeAndBrandsSpecification(id);
+
+            return Response(await _productRepository.GetEntityWithSpec(spec));
+        }
+
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetBrands()
+        {
+            return Response(await _productBrandRepository.GetListAllAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<IActionResult> GetTypes()
+        {
+            return Response(await _productTypeRepository.GetListAllAsync());
+        }
     }
-  }
 }

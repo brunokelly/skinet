@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,6 +19,12 @@
     <ProjectReference Include="..\Skinet.Application\Skinet.Application.csproj" />
     <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
     <ProjectReference Include="..\Skinet.Infra.Data\Skinet.Infra.Data.csproj" />
+    <ProjectReference Include="..\Skinet.Infra\Skinet.Infra.csproj" />
+  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
