@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Skinet.Application.ProductModel.Response;
 using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Domain.Specification;
@@ -27,14 +29,23 @@ namespace Skinet.WebApi.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var spec = new ProductsWithTypeAndBrandsSpecification();
+            var response = new List<ProductResponse>();
 
-            return Response(await _productRepository.ListAsync(spec));
+            var result = await _productRepository.ListAsync(spec);
+            foreach(var x in result)
+            {
+                response.Add((ProductResponse)x);
+            }
+
+            return Response(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            return Response(await _productRepository.GetByIdAsync(id));
+            var spec = new ProductsWithTypeAndBrandsSpecification(id);
+
+            return Response(await _productRepository.GetEntityWithSpec(spec));
         }
 
         [HttpGet("brands")]

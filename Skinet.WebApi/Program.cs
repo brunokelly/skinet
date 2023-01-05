@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Skinet.Application.Helpers;
 using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Infra;
@@ -29,7 +30,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseStaticFiles();
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
@@ -55,4 +56,6 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
     services.AddScoped<INotification, Notification>();
     services.AddScoped<IProductRepository, ProductRepository>();
+    services.AddAutoMapper(typeof(MappingProfiles));
 }
+

@@ -8,6 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
+    <Folder Include="Product\Models\Dto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
   </ItemGroup>
 
 </Project>
