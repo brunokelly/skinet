@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Skinet.Application.Product.Models.Response;
 using Skinet.Application.ProductModel.Response;
+using Skinet.Domain;
 using Skinet.Domain.ProductModel;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Domain.Specification;
-using Skinet.Infra;
+using Skinet.WebApi.Helpers;
 
 namespace Skinet.WebApi.Controllers
 {
@@ -24,12 +25,14 @@ namespace Skinet.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts(string? sort, int? brandId, int? typeId)
+        public async Task<IActionResult> GetProducts([FromQuery]ProductSpecParams productParams)
         {
-            var spec = new ProductsWithTypeAndBrandsSpecification(sort, brandId, typeId);
-            var response = new List<ProductResponse>();
+            var spec = new ProductsWithTypeAndBrandsSpecification(productParams);
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+            var totalItems = await _productRepository.CountAsync(countSpec);
+            var products = (ProductListResponse)await _productRepository.ListAsync(spec);
 
-            return Response((ProductListResponse)await _productRepository.ListAsync(spec));
+            return Response(new Pagination<ProductResponse>(productParams.PageIndex, productParams.PageSize, totalItems, products.Items.ToList()));
         }
 
         [HttpGet("{id}")]

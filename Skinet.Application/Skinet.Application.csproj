@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Product\Models\Dto\" />
+    <Folder Include="Product\Models\Request\" />
   </ItemGroup>
 
   <ItemGroup>

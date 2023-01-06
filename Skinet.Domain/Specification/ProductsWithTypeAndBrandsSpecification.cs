@@ -5,18 +5,20 @@ namespace Skinet.Domain.Specification
 {
     public class ProductsWithTypeAndBrandsSpecification : BaseSpecification<ProductModel.Product>
     {
-        public ProductsWithTypeAndBrandsSpecification(string sort, int? brandId, int? typeId) : 
+        public ProductsWithTypeAndBrandsSpecification(ProductSpecParams productParams) :
             base(x =>
-                (!brandId.HasValue || x.ProductBrand.Id == brandId) &&
-                (!typeId.HasValue || x.ProductType.Id == typeId))
+                (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&
+                (!productParams.BrandId.HasValue || x.ProductBrand.Id == productParams.BrandId) &&
+                (!productParams.TypeId.HasValue || x.ProductType.Id == productParams.TypeId))
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
             AddOrderBy(x => x.Name);
+            ApplyPaging(productParams.PageSize * (productParams.PageIndex - 1), productParams.PageSize);
 
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(productParams.Sort))
             {
-                switch (sort)
+                switch (productParams.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);

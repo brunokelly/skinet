@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Skinet.Domain;
 using Skinet.Domain.ProductModel.Repository;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Infra;
@@ -17,6 +18,16 @@ ConfigureServices(builder.Services);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
