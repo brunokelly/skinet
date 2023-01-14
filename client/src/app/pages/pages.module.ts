@@ -7,6 +7,7 @@ import { PagesComponent } from './pages.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductsCardComponent } from './products/products-card/products-card.component';
+import { ProductsFilterComponent } from './products/products-filter/products-filter.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ProductsCardComponent } from './products/products-card/products-card.co
     PagesComponent,
     ProductsComponent,
     ProductsListComponent,
-    ProductsCardComponent
+    ProductsCardComponent,
+    ProductsFilterComponent
   ],
   imports: [
     CommonModule,

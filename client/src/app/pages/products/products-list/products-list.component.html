@@ -1,3 +1,7 @@
-<ng-container *ngFor="let item of items; let i = index;">
-  <li>{{item.name}}</li>
-</ng-container>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+  <ng-container *ngFor="let item of items; let i = index">
+    <app-products-card [item]="item"></app-products-card>
+  </ng-container>
+
+</div>

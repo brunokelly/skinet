@@ -1,1 +1,34 @@
-<app-products-list></app-products-list>
+<div class="container">
+  <div class="row">
+    <section class="col-3">
+      <app-products-filter></app-products-filter>
+    </section>
+
+    <section class="col-9">
+      <div class="d-flex justify-content-between align-items-center pb-2">
+        <header>
+          <span>
+            Showing <strong>10</strong> of <strong>16</strong> Results</span
+          >
+        </header>
+
+        <div class="form-inline mt-2 d-flex">
+          <input
+            class="form-control mr-2"
+            style="width: 300px"
+            type="text"
+            placeholder="search"
+          />
+          <button class="btn btn-outline-primary mx-2 my-2">Search</button>
+          <button class="btn btn-outline-success ml-2 my-2">Reset</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-auto">
+          <app-products-list [items]="items"></app-products-list>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
