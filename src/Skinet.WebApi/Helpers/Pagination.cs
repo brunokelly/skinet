@@ -1,6 +1,8 @@
-﻿namespace Skinet.WebApi.Helpers
+﻿using Skinet.Application.Common;
+
+namespace Skinet.WebApi.Helpers
 {
-    public class Pagination<T> where T : class
+    public class Pagination<T> : BaseResponse where T : class
     {
         public Pagination(int pageIndex, int pageSize, int count, List<T> data)
         {

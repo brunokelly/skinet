@@ -24,7 +24,7 @@ namespace Skinet.Infra.Repository
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<IReadOnlyList<T>> GetListAllAsync()
+        public async Task<List<T>> GetListAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
         }

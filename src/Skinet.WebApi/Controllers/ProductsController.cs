@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Skinet.Application.Product.Models.Response;
+using Skinet.Application.Product.Models.Response.Brands;
+using Skinet.Application.Product.Models.Response.ProductTypes;
 using Skinet.Application.ProductModel.Response;
 using Skinet.Domain;
 using Skinet.Domain.ProductModel;
@@ -46,13 +48,13 @@ namespace Skinet.WebApi.Controllers
         [HttpGet("brands")]
         public async Task<IActionResult> GetBrands()
         {
-            return Response(await _productBrandRepository.GetListAllAsync());
+            return Response((ProductBrandListResponse)await _productBrandRepository.GetListAllAsync());
         }
 
         [HttpGet("types")]
         public async Task<IActionResult> GetTypes()
         {
-            return Response(await _productTypeRepository.GetListAllAsync());
+            return Response((ProductTypeListResponse)await _productTypeRepository.GetListAllAsync());
         }
     }
 }
