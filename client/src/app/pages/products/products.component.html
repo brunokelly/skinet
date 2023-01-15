@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
     <section class="col-3">
-      <app-products-filter></app-products-filter>
+      <app-products-filter [brands]="brands" [productsType]="productsType"
+      (brandSelected)="brandFilter($event)"
+      (typeSelected)="productTypeFilter($event)"
+      (sortSelected)="sortFilter($event)"
+      ></app-products-filter>
     </section>
 
     <section class="col-9">
