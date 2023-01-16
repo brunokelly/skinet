@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { IPagination } from './models/pagination';
 import { IProduct } from './models/product';
 import { ProductService } from './services/product.service';
+import { IPaginationData } from 'src/app/shared/models/pagination-data';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +20,8 @@ export class ProductsComponent implements OnInit {
   public brandSelected: number;
   public typeSelected: number;
   public sortTypeSelected: string;
+  public paginationData: IPaginationData;
+
 
   constructor(private productSerivce: ProductService) { }
 
@@ -32,7 +35,14 @@ export class ProductsComponent implements OnInit {
   {
     this.productSerivce.getProducts(this.brandSelected, this.typeSelected, this.sortTypeSelected)
     .subscribe({
-      next: response => this.items = response.data,
+      next: response => {
+        this.paginationData = {
+            page: response.pageIndex,
+            pageSize: response.pageSize,
+            collectioSize: response.count
+        }
+        this.items = response.data
+      },
       error: x => console.log(x),
     }
     );

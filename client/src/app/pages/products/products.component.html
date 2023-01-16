@@ -29,8 +29,9 @@
       </div>
 
       <div class="row">
-        <div class="col-auto">
-          <app-products-list [items]="items"></app-products-list>
+        <div class="col">
+          <app-products-list [items]="items"
+          [paginationData]="paginationData"></app-products-list>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { IPaginationData } from './../../../shared/models/pagination-data';
 import { IProduct } from './../models/product';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,6 +9,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductsListComponent implements OnInit {
   @Input () items: IProduct[];
+  @Input() paginationData: IPaginationData;
+  
   constructor() {}
 
   ngOnInit(): void {

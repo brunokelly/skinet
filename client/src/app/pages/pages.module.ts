@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,8 +9,6 @@ import { ProductsComponent } from './products/products.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductsCardComponent } from './products/products-card/products-card.component';
 import { ProductsFilterComponent } from './products/products-filter/products-filter.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +22,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbModule
   ]
 })
 export class PagesModule { }
