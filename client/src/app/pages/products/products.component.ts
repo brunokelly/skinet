@@ -2,10 +2,11 @@ import { IBrandItem } from './models/productBrands/brands-item';
 import { IProductTypeItem } from './models/productTypes/product-type-item';
 
 import { Component, OnInit } from '@angular/core';
-import { IPagination } from './models/pagination';
-import { IProduct } from './models/product';
+import { IPagination } from './models/product/pagination';
+import { IProduct } from './models/product/product';
 import { ProductService } from './services/product.service';
 import { IPaginationData } from 'src/app/shared/models/pagination-data';
+import { ProductParams } from './models/product/product-params';
 
 @Component({
   selector: 'app-products',
@@ -17,10 +18,8 @@ export class ProductsComponent implements OnInit {
   public brands: IBrandItem[] = [];
   public productsType: IProductTypeItem[] = [];
 
-  public brandSelected: number;
-  public typeSelected: number;
-  public sortTypeSelected: string;
-  public paginationData: IPaginationData;
+  public productParams = new ProductParams();
+  public totalCount: number;
 
 
   constructor(private productSerivce: ProductService) { }
@@ -33,15 +32,13 @@ export class ProductsComponent implements OnInit {
 
   public getProducts()
   {
-    this.productSerivce.getProducts(this.brandSelected, this.typeSelected, this.sortTypeSelected)
+    this.productSerivce.getProducts(this.productParams)
     .subscribe({
       next: response => {
-        this.paginationData = {
-            page: response.pageIndex,
-            pageSize: response.pageSize,
-            collectioSize: response.count
-        }
-        this.items = response.data
+        this.items = response.data;
+        this.productParams.pageNumber = response.pageIndex;
+        this.productParams.pageSize = response.pageSize;
+        this.productParams.totalCount = response.count;
       },
       error: x => console.log(x),
     }
@@ -70,19 +67,25 @@ export class ProductsComponent implements OnInit {
 
   public productTypeFilter(typeId: number)
   {
-    this.typeSelected = typeId;
+    this.productParams.typeIdSelected = typeId;
     this.getProducts();
   }
 
   public brandFilter(brandId: number)
   {
-    this.brandSelected = brandId;
+    this.productParams.brandIdSelected = brandId;
     this.getProducts();
   }
 
   public sortFilter(sort: string)
   {
-    this.sortTypeSelected = sort;
+    this.productParams.sortSelected = sort;
+    this.getProducts();
+  }
+
+  public pageChange(page: number)
+  {
+    this.productParams.pageNumber =  page ?? 1;
     this.getProducts();
   }
 }

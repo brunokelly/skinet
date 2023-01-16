@@ -16,7 +16,7 @@
     <ng-container *ngFor="let brand of brands; let i = index">
       <li
         class="list-group-item"
-        [class.active]="brand.id == this.brandIdSelected"
+        [class.active]="brand.id == this.productParams.brandIdSelected"
         [value]="brand.id"
         (click)="onBrandSelected(brand.id)"
       >
@@ -30,7 +30,7 @@
     <ng-container *ngFor="let type of productsType; let i = index">
       <li
         class="list-group-item"
-        [class.active]="type.id == this.typeIdSelected"
+        [class.active]="type.id == this.productParams.typeIdSelected"
         [value]="type.id"
         (click)="onTypeSelected(type.id)"
       >

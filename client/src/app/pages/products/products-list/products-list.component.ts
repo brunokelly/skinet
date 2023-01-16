@@ -1,6 +1,7 @@
-import { IPaginationData } from './../../../shared/models/pagination-data';
-import { IProduct } from './../models/product';
-import { Component, Input, OnInit } from '@angular/core';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProductParams } from './../models/product/product-params';
+import { IProduct } from './../models/product/product';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-products-list',
@@ -9,10 +10,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductsListComponent implements OnInit {
   @Input () items: IProduct[];
-  @Input() paginationData: IPaginationData;
-  
+  @Input() productParams = new ProductParams();
+  @Output() pageChanged = new EventEmitter<number>();
+
   constructor() {}
 
   ngOnInit(): void {
+  }
+
+  onPageChanged(page: number)
+  {
+    this.productParams.pageNumber = page
+    this.pageChanged.emit(page);
   }
 }

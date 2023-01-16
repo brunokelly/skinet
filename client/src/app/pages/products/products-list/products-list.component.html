@@ -5,8 +5,9 @@
 </div>
 <div class="d-flex justify-content-center my-3">
   <ngb-pagination
-    [(page)]="paginationData.page"
-    [pageSize]="paginationData.pageSize"
-    [collectionSize]="paginationData.collectioSize"
+    [(page)]="productParams.pageNumber"
+    [pageSize]="productParams.pageSize"
+    [collectionSize]="productParams.totalCount"
+    (pageChange)="onPageChanged($event)"
   ></ngb-pagination>
 </div>

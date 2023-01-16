@@ -1,4 +1,4 @@
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,7 +23,8 @@ import { ProductsFilterComponent } from './products/products-filter/products-fil
     CommonModule,
     PagesRoutingModule,
     SharedModule,
-    NgbModule
+    NgbModule,
+    NgbPaginationModule
   ]
 })
 export class PagesModule { }

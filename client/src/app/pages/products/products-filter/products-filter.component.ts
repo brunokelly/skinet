@@ -1,8 +1,8 @@
-import { NavbarComponent } from './../../../shared/components/navbar/navbar.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { IProductTypeItem } from './../models/productTypes/product-type-item';
 import { IBrandItem } from './../models/productBrands/brands-item';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IBrand } from '../models/productBrands/brand';
+import { ProductParams } from '../models/product/product-params';
 
 @Component({
   selector: 'app-products-filter',
@@ -16,9 +16,7 @@ export class ProductsFilterComponent implements OnInit {
   @Output() typeSelected = new EventEmitter<number>();
   @Output() sortSelected = new EventEmitter<string>();
 
-  brandIdSelected = 0;
-  typeIdSelected = 0;
-  sortTypeSelected: string;
+  productParams = new ProductParams();
   sortOptions = [
     {
       name: 'Alphabetical',
@@ -26,12 +24,12 @@ export class ProductsFilterComponent implements OnInit {
     },
     {
       name: 'Price: Low to High',
-      value: 'priceAsc'
+      value: 'priceAsc',
     },
     {
       name: 'Price: High to Low',
-      value: 'priceDesc'
-    }
+      value: 'priceDesc',
+    },
   ];
 
   constructor() {}
@@ -39,17 +37,17 @@ export class ProductsFilterComponent implements OnInit {
   ngOnInit(): void {}
 
   onBrandSelected(brandId: number) {
-    this.brandIdSelected = brandId;
+    this.productParams.brandIdSelected = brandId;
     this.brandSelected.emit(brandId);
   }
 
   onTypeSelected(typeId: number) {
-    this.typeIdSelected = typeId;
+    this.productParams.typeIdSelected = typeId;
     this.typeSelected.emit(typeId);
   }
 
   onSortSelected(sort: string) {
-    this.sortTypeSelected = sort;
+    this.productParams.sortSelected = sort;
     this.sortSelected.emit(sort);
   }
 }
