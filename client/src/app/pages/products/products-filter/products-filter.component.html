@@ -1,0 +1,43 @@
+<div>
+  <h5 class="text-warging ml-3">Sort</h5>
+  <select
+    name="sort"
+    id="sort"
+    class="custom-select mb-3"
+    (change)="onSortSelected($event.target.value)"
+  >
+    <option *ngFor="let sort of sortOptions" [value]="sort.value">
+      {{ sort.name }}
+    </option>
+  </select>
+
+  <h5 class="text-warging ml-3">Brands</h5>
+  <ul class="list-group my-3">
+    <ng-container *ngFor="let brand of brands; let i = index">
+      <li
+        style="text-align: left"
+        class="list-group-item btn btn-light text-left"
+        [class.active]="brand.id == this.productParams.brandIdSelected"
+        [value]="brand.id"
+        (click)="onBrandSelected(brand.id)"
+      >
+        {{ brand.name }}
+      </li>
+    </ng-container>
+  </ul>
+
+  <h5 class="text-warging ml-3">Types</h5>
+  <ul class="list-group my-3">
+    <ng-container *ngFor="let type of productsType; let i = index">
+      <li
+        style="text-align: left"
+        class="list-group-item btn btn-light"
+        [class.active]="type.id == this.productParams.typeIdSelected"
+        [value]="type.id"
+        (click)="onTypeSelected(type.id)"
+      >
+        {{ type.name }}
+      </li>
+    </ng-container>
+  </ul>
+</div>
