@@ -12,34 +12,31 @@
 
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span *ngIf="this.productParams.totalCount && this.productParams.totalCount > 0">
-            Showing
-            <strong>
-              {{(this.productParams.pageNumber - 1) *this.productParams.pageSize + 1}}
-              - {{this.productParams.pageNumber * this.productParams.pageSize
-              > this.totalCount ? this.totalCount : this.productParams.pageNumber*this.productParams.pageSize
-              }}</strong>
-              of <strong>{{this.productParams.totalCount}}</strong> Results</span
-          >
-          <span *ngIf="this.productParams.totalCount === 0">
-            There are <strong>0</strong> results for this filter.
-          </span>
-        </header>
-
+        <app-paging-header
+          [pageSize]="productParams.pageSize"
+          [pageNumber]="productParams.pageNumber"
+          [totalCount]="productParams.totalCount"
+        >
+        </app-paging-header>
         <div class="form-inline mt-2 d-flex">
           <input
+            (keyup.enter)="onSearch()"
+            #search
             class="form-control mr-2"
             style="width: 300px"
             type="text"
             placeholder="search"
           />
-          <button class="btn btn-outline-primary mx-2 my-2">Search</button>
-          <button class="btn btn-outline-success ml-2 my-2">Reset</button>
+          <button (click)="onSearch()" class="btn btn-outline-primary mx-2 my-2">Search</button>
+          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
         </div>
       </div>
 
-      <ng-container *ngIf="this.productParams.totalCount && this.productParams.totalCount > 0">
+      <ng-container
+        *ngIf="
+          this.productParams.totalCount && this.productParams.totalCount > 0
+        "
+      >
         <div class="row">
           <div class="col">
             <app-products-list

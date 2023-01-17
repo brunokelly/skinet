@@ -15,7 +15,8 @@
   <ul class="list-group my-3">
     <ng-container *ngFor="let brand of brands; let i = index">
       <li
-        class="list-group-item"
+        style="text-align: left"
+        class="list-group-item btn btn-light text-left"
         [class.active]="brand.id == this.productParams.brandIdSelected"
         [value]="brand.id"
         (click)="onBrandSelected(brand.id)"
@@ -29,7 +30,8 @@
   <ul class="list-group my-3">
     <ng-container *ngFor="let type of productsType; let i = index">
       <li
-        class="list-group-item"
+        style="text-align: left"
+        class="list-group-item btn btn-light"
         [class.active]="type.id == this.productParams.typeIdSelected"
         [value]="type.id"
         (click)="onTypeSelected(type.id)"

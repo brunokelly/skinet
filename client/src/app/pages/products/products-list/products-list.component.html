@@ -4,10 +4,10 @@
   </ng-container>
 </div>
 <div class="d-flex justify-content-center my-3">
-  <ngb-pagination
-    [(page)]="productParams.pageNumber"
+  <app-pagination
+    [pageNumber]="productParams.pageNumber"
     [pageSize]="productParams.pageSize"
-    [collectionSize]="productParams.totalCount"
-    (pageChange)="onPageChanged($event)"
-  ></ngb-pagination>
+    [totalCount]="productParams.totalCount"
+    (pageChanged)="onPageChanged($event)"
+  ></app-pagination>
 </div>

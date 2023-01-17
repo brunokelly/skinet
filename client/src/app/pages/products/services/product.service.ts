@@ -17,10 +17,12 @@ export class ProductService {
   public getProducts(productParams?: ProductParams) {
 
     let params = new HttpParams();
+
     if(productParams)
     {
-      if (productParams.brandIdSelected !== 0) params = params.append('brandId', productParams.brandIdSelected.toString());
-      if (productParams.typeIdSelected !== 0) params = params.append('typeId', productParams.typeIdSelected.toString());
+      if  (productParams.brandIdSelected !== 0) params = params.append('brandId', productParams.brandIdSelected.toString());
+      if  (productParams.typeIdSelected !== 0) params = params.append('typeId', productParams.typeIdSelected.toString());
+      if  (productParams.search) params = params.append('search', productParams.search);
       params = params.append('sort', productParams.sortSelected);
       params = params.append('pageIndex', productParams.pageNumber.toString());
       params = params.append('pageSize', productParams.pageSize.toString());

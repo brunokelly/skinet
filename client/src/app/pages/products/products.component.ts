@@ -1,11 +1,9 @@
 import { IBrandItem } from './models/productBrands/brands-item';
 import { IProductTypeItem } from './models/productTypes/product-type-item';
 
-import { Component, OnInit } from '@angular/core';
-import { IPagination } from './models/product/pagination';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IProduct } from './models/product/product';
 import { ProductService } from './services/product.service';
-import { IPaginationData } from 'src/app/shared/models/pagination-data';
 import { ProductParams } from './models/product/product-params';
 
 @Component({
@@ -14,13 +12,14 @@ import { ProductParams } from './models/product/product-params';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  @ViewChild('search', {static: true}) searchTerm: ElementRef;
+
   public items: IProduct[] = [];
   public brands: IBrandItem[] = [];
   public productsType: IProductTypeItem[] = [];
 
   public productParams = new ProductParams();
   public totalCount: number;
-
 
   constructor(private productSerivce: ProductService) { }
 
@@ -86,6 +85,19 @@ export class ProductsComponent implements OnInit {
   public pageChange(page: number)
   {
     this.productParams.pageNumber =  page ?? 1;
+    this.getProducts();
+  }
+
+  public onSearch()
+  {
+    this.productParams.search = this.searchTerm.nativeElement.value;
+    this.getProducts();
+  }
+
+  public onReset()
+  {
+    this.searchTerm.nativeElement.value = '';
+    this.productParams = new ProductParams();
     this.getProducts();
   }
 }

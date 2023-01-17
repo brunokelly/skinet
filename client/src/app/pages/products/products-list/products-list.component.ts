@@ -1,7 +1,6 @@
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductParams } from './../models/product/product-params';
 import { IProduct } from './../models/product/product';
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-products-list',
@@ -12,6 +11,7 @@ export class ProductsListComponent implements OnInit {
   @Input () items: IProduct[];
   @Input() productParams = new ProductParams();
   @Output() pageChanged = new EventEmitter<number>();
+
 
   constructor() {}
 

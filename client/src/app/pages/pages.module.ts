@@ -24,7 +24,6 @@ import { ProductsFilterComponent } from './products/products-filter/products-fil
     PagesRoutingModule,
     SharedModule,
     NgbModule,
-    NgbPaginationModule
   ]
 })
 export class PagesModule { }

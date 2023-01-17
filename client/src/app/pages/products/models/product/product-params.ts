@@ -3,6 +3,7 @@ export class ProductParams{
   typeIdSelected = 0;
   sortSelected = 'name';
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 6;
   totalCount = 0;
+  search: string;
 }
