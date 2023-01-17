@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <section class="col-3">
+      <app-products-filter
+        [brands]="brands"
+        [productsType]="productsType"
+        (brandSelected)="brandFilter($event)"
+        (typeSelected)="productTypeFilter($event)"
+        (sortSelected)="sortFilter($event)"
+      ></app-products-filter>
+    </section>
+
+    <section class="col-9">
+      <div class="d-flex justify-content-between align-items-center pb-2">
+        <app-paging-header
+          [pageSize]="productParams.pageSize"
+          [pageNumber]="productParams.pageNumber"
+          [totalCount]="productParams.totalCount"
+        >
+        </app-paging-header>
+        <div class="form-inline mt-2 d-flex">
+          <input
+            (keyup.enter)="onSearch()"
+            #search
+            class="form-control mr-2"
+            style="width: 300px"
+            type="text"
+            placeholder="search"
+          />
+          <button (click)="onSearch()" class="btn btn-outline-primary mx-2 my-2">Search</button>
+          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
+        </div>
+      </div>
+
+      <ng-container
+        *ngIf="
+          this.productParams.totalCount && this.productParams.totalCount > 0
+        "
+      >
+        <div class="row">
+          <div class="col">
+            <app-products-list
+              [items]="items"
+              [productParams]="productParams"
+              (pageChanged)="pageChange($event)"
+            ></app-products-list>
+          </div>
+        </div>
+      </ng-container>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+  <ng-container *ngFor="let item of items; let i = index">
+    <app-products-card [item]="item"></app-products-card>
+  </ng-container>
+</div>
+<div class="d-flex justify-content-center my-3">
+  <app-pagination
+    [pageNumber]="productParams.pageNumber"
+    [pageSize]="productParams.pageSize"
+    [totalCount]="productParams.totalCount"
+    (pageChanged)="onPageChanged($event)"
+  ></app-pagination>
+</div>
