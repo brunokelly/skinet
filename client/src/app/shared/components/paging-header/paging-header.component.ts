@@ -1,4 +1,3 @@
-import { ProductParams } from '../../../pages/products/product/models/product/product-params';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

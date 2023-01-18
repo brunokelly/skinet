@@ -1,6 +1,4 @@
-import { ProductComponent } from './pages/products/product/product.component';
-import { HomeComponent } from './pages/home/home/home.component';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -10,13 +8,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path:'home',
-    loadChildren:  () => import('./pages/home/home.module').then(x => x.HomeModule)
-
+    path:'home', loadChildren:  () => import('./pages/home/home.module').then(x => x.HomeModule)
   },
   {
-    path: 'shop',
-    loadChildren:  () => import('./pages/products/shop.module').then(x => x.ShopModule)
+    path: 'shop', loadChildren:  () => import('./pages/shop/shop.module').then(x => x.ShopModule)
   },
   {
     path: "**",
