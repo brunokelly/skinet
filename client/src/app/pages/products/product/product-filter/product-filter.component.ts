@@ -5,11 +5,11 @@ import { IBrandItem } from '../models/productBrands/brands-item';
 import { ProductParams } from '../models/product/product-params';
 
 @Component({
-  selector: 'app-products-filter',
-  templateUrl: './products-filter.component.html',
-  styleUrls: ['./products-filter.component.scss'],
+  selector: 'app-product-filter',
+  templateUrl: './product-filter.component.html',
+  styleUrls: ['./product-filter.component.scss'],
 })
-export class ProductsFilterComponent implements OnInit {
+export class ProductFilterComponent implements OnInit {
   @Input() brands: IBrandItem[] = [];
   @Input() productsType: IProductTypeItem[] = [];
   @Output() brandSelected = new EventEmitter<number>();

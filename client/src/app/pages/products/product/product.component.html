@@ -1,14 +1,13 @@
-
 <div class="container">
   <div class="row">
     <section class="col-3">
-      <app-products-filter
+      <app-product-filter
         [brands]="brands"
         [productsType]="productsType"
         (brandSelected)="brandFilter($event)"
         (typeSelected)="productTypeFilter($event)"
         (sortSelected)="sortFilter($event)"
-      ></app-products-filter>
+      ></app-product-filter>
     </section>
 
     <section class="col-9">
@@ -40,11 +39,11 @@
       >
         <div class="row">
           <div class="col">
-            <app-products-list
+            <app-product-list
               [items]="items"
               [productParams]="productParams"
               (pageChanged)="pageChange($event)"
-            ></app-products-list>
+            ></app-product-list>
           </div>
         </div>
       </ng-container>

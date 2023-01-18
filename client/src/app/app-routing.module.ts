@@ -11,12 +11,12 @@ const routes: Routes = [
   },
   {
     path:'home',
-    component: HomeComponent,
+    loadChildren:  () => import('./pages/home/home.module').then(x => x.HomeModule)
+
   },
   {
-    path: 'products',
-    component: ProductComponent,
-    loadChildren:  () => import('./pages/products/product/product.module').then(x => x.ProductModule)
+    path: 'shop',
+    loadChildren:  () => import('./pages/products/shop.module').then(x => x.ShopModule)
   },
   {
     path: "**",
@@ -25,7 +25,8 @@ const routes: Routes = [
   },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+    {enableTracing: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
