@@ -1,5 +1,5 @@
-import { ProductParams } from './../models/product/product-params';
-import { IProduct } from './../models/product/product';
+import { ProductParams } from '../models/product/product-params';
+import { IProduct } from '../models/product/product';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({

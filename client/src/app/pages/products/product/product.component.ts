@@ -7,11 +7,11 @@ import { ProductService } from './services/product.service';
 import { ProductParams } from './models/product/product-params';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductComponent implements OnInit {
   @ViewChild('search', {static: true}) searchTerm: ElementRef;
 
   public items: IProduct[] = [];

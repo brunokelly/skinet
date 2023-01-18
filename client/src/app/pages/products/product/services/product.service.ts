@@ -1,7 +1,7 @@
-import { ProductParams } from './../models/product/product-params';
-import { IProductType } from './../models/productTypes/product-type';
+import { ProductParams } from '../models/product/product-params';
+import { IProductType } from '../models/productTypes/product-type';
 
-import { IPagination } from './../models/product/pagination';
+import { IPagination } from '../models/product/pagination';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';

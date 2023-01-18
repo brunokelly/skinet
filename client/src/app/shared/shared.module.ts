@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -13,7 +14,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    RouterModule
   ],
   exports: [
     NavbarComponent,

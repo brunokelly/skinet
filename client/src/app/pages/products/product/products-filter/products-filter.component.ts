@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { IProductTypeItem } from './../models/productTypes/product-type-item';
-import { IBrandItem } from './../models/productBrands/brands-item';
+import { IProductTypeItem } from '../models/productTypes/product-type-item';
+import { IBrandItem } from '../models/productBrands/brands-item';
 import { ProductParams } from '../models/product/product-params';
 
 @Component({

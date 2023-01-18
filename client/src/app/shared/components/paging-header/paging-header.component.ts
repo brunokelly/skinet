@@ -1,4 +1,4 @@
-import { ProductParams } from './../../../pages/products/models/product/product-params';
+import { ProductParams } from '../../../pages/products/product/models/product/product-params';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -11,7 +11,7 @@ export class PagingHeaderComponent implements OnInit {
   @Input() pageNumber: number = 1;
   @Input() pageSize: number = 0;
   @Input() totalCount: number;
-  
+
   constructor() { }
 
   ngOnInit(): void {

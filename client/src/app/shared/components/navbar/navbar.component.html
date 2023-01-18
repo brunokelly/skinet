@@ -3,11 +3,13 @@
     style="max-height: 70px; width: 100px"
     alt="logo"
     class="logo"
-    src="/assets/images/logo.png" style="max-height: 70px;" alt="logo">
+    src="/assets/images/logo.png" style="max-height: 70px;"
+    [routerLink]="['/']"
+    alt="logo">
 
     <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger">
-    <a class="p-2 text-dark text-decoration-none" href="#">Home</a>
-    <a class="p-2 text-dark text-decoration-none" href="#">Shop</a>
+    <a class="p-2 text-dark text-decoration-none" [routerLink]="['/']">Home</a>
+    <a class="p-2 text-dark text-decoration-none" routerLink='/products'>Shop</a>
     <a class="p-2 text-dark text-decoration-none" href="#">Contact</a>
   </nav>
 
