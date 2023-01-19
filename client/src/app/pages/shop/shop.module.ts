@@ -1,3 +1,5 @@
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 import { ShopRoutingModule } from './shop-routing.module';
 import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -19,7 +21,8 @@ import { ProductCardComponent } from './product/product-card/product-card.compon
   imports: [
     CommonModule,
     SharedModule,
-    ShopRoutingModule
+    ShopRoutingModule,
+    BreadcrumbModule
   ]
 })
 export class ShopModule { }

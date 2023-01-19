@@ -2,6 +2,7 @@ import { HomeRouting } from './home.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     CommonModule,
-    HomeRouting
+    HomeRouting,
+    BreadcrumbModule
   ],
   exports: []
 })

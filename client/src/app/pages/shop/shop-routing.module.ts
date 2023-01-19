@@ -6,14 +6,12 @@ import { ProductDetailComponent } from "./product/product-detail/product-detail.
 const routes: Routes = [
   {
     path: '',
-    data: {title: 'Product'},
+    data: {title: 'Product' },
     component: ProductComponent,
-    children: [
-    ]
   },
   {
     path: ':id',
-    data: {title: 'View Product'},
+    data: { title: 'View Product', breadcrumb: {alias: 'productDetails'} },
     component: ProductDetailComponent,
   }
 ];

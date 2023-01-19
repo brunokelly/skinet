@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment';
 import { IProduct } from './../models/product/product';
 import { ProductParams } from '../models/product/product-params';
 import { IProductType } from '../models/productTypes/product-type';
@@ -12,7 +13,8 @@ import { IBrand } from '../models/productBrands/brand';
   providedIn: 'root',
 })
 export class ProductService {
-  private url = 'https://localhost:7100/api/products'
+  private url = environment.baseUrl + 'products'
+
   constructor(private http: HttpClient) { }
 
   public getProducts(productParams?: ProductParams) {
