@@ -23,6 +23,12 @@ const routes: Routes = [
       import('./pages/shop/shop.module').then((x) => x.ShopModule),
   },
   {
+   path: 'basket',
+   data: { title: 'basket', breadcrumb: 'Basket' },
+   loadChildren: () => import('./pages/basket/basket.module').then((x) => x.BasketModule)
+
+  },
+  {
     path: 'error',
     data: { title: 'Error', breadcrumb: 'Error'},
     loadChildren: () => import('./core/core.module').then((x) => x.CoreModule),
