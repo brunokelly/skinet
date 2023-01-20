@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Skinet.Application.Product.Models.Response;
 using Skinet.Application.Product.Models.Response.Brands;
-using Skinet.Application.Product.Models.Response.ProductTypes;
 using Skinet.Application.ProductModel.Response;
 using Skinet.Domain;
 using Skinet.Domain.ProductModel;
