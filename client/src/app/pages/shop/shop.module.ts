@@ -1,4 +1,3 @@
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { ShopRoutingModule } from './shop-routing.module';
 import { SharedModule } from './../../shared/shared.module';
