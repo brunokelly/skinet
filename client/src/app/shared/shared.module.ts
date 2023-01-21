@@ -6,14 +6,16 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { SectionHeaderComponent } from './components/section-header/section-header.component';
-import { BreadcrumbModule } from 'xng-breadcrumb'
+import { BreadcrumbModule } from 'xng-breadcrumb';
+import { OrderTotalsComponent } from './components/order-totals/order-totals.component'
 
 @NgModule({
   declarations: [
     NavbarComponent,
     PagingHeaderComponent,
     PaginationComponent,
-    SectionHeaderComponent
+    SectionHeaderComponent,
+    OrderTotalsComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { BreadcrumbModule } from 'xng-breadcrumb'
     NavbarComponent,
     PagingHeaderComponent,
     PaginationComponent,
-    SectionHeaderComponent
+    SectionHeaderComponent,
+    OrderTotalsComponent
   ]
 })
 export class SharedModule { }
