@@ -24,13 +24,17 @@ const routes: Routes = [
   },
   {
    path: 'basket',
-   data: { title: 'basket', breadcrumb: 'Basket' },
+   data: { title: 'Basket', breadcrumb: 'Basket' },
    loadChildren: () => import('./pages/basket/basket.module').then((x) => x.BasketModule)
-
+  },
+  {
+    path: 'checkout',
+    data: { title: 'Checkout', breadcrumb: 'Checkout' },
+    loadChildren: () => import('./pages/checkout/checkout.module').then((x) => x.CheckoutModule)
   },
   {
     path: 'error',
-    data: { title: 'Error', breadcrumb: 'Error'},
+    data: { title: 'Error' },
     loadChildren: () => import('./core/core.module').then((x) => x.CoreModule),
   },
   {
