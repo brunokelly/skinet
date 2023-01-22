@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Skinet.Application.Basket.Services
 {
-    public class BasketService
+    public class BasketService : IBasketService
     {
     }
 }

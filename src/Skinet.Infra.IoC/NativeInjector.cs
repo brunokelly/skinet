@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Skinet.Application.Accounts.Services;
+using Skinet.Application.Basket.Services;
+using Skinet.Application.Products.Services;
 using Skinet.Domain;
 using Skinet.Domain.Identity;
 using Skinet.Domain.ProductModel.Repository;
@@ -17,7 +20,10 @@ namespace Skinet.Infra.IoC
     {
         public static void AddLocalServices(this IServiceCollection services, IConfiguration configuration)
         {
-            
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IProductService, ProductService>();
+
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<INotification, Notification>();
             services.AddScoped<IProductRepository, ProductRepository>();

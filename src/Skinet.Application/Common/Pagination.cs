@@ -1,6 +1,6 @@
 ﻿using Skinet.Application.Common;
 
-namespace Skinet.WebApi.Helpers
+namespace Skinet.Application.Common
 {
     public class Pagination<T> : BaseResponse where T : class
     {
