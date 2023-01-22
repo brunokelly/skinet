@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Skinet.Domain;
+using Skinet.Domain.Identity;
 using Skinet.Domain.ProductModel.Repository;
 using Skinet.Domain.SeedOfWork;
 using Skinet.Infra.Data.Context;
@@ -29,6 +31,19 @@ namespace Skinet.Infra.IoC
             });
 
             services.AddDbContext<AppIdentityDbContext>();
+        }
+
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services. , IConfiguration configuration)
+        {
+            var builder = services.AddIdentityCore<AppUser>();
+
+            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddEntityFrameworkStores<AppIdentityDbContext>();
+            builder.AddSignInManager<SignInManager<AppUser>>();
+
+            services.AddAuthentication();
+
+            return services;
         }
 
     }
