@@ -33,7 +33,7 @@ namespace Skinet.Infra.IoC
             services.AddDbContext<AppIdentityDbContext>();
         }
 
-        public static IServiceCollection AddIdentityServices(this IServiceCollection services. , IConfiguration configuration)
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services , IConfiguration configuration)
         {
             var builder = services.AddIdentityCore<AppUser>();
 

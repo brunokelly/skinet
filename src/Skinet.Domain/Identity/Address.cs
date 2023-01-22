@@ -16,6 +16,7 @@
             State = state;
             ZipCode = zipCode;
         }
+        public string Id { get; set; }
         public string Name { get; private set; }
         public string LastName { get; private set; }
         public string Street { get; private set; }
