@@ -1,27 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
-using Skinet.Domain;
-using Skinet.Domain.Basket.Repository;
-using Skinet.Domain.ProductModel.Repository;
-using Skinet.Domain.SeedOfWork;
 using Skinet.Infra.Data.Context;
 using Skinet.Infra.Data.SeedData;
-using Skinet.Infra.Repository;
-using Skinet.Infra.Repository.Basket;
-using Skinet.Infra.Repository.ProductRepo;
 using Skinet.WebApi.Middleware;
-using StackExchange.Redis;
+using Skinet.Infra.IoC;
+using Microsoft.Extensions.FileProviders;
+using Skinet.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
+using Skinet.Infra.Data.Context.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>(x =>
-{
-    var configuration = ConfigurationOptions.Parse("localhost", true);
-    return ConnectionMultiplexer.Connect(configuration);
-});
-ConfigureServices(builder.Services);
+builder.Services.AddLocalServices(builder.Configuration);
+builder.Services.AddLocalUnitOfWork(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -54,42 +46,63 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseStaticFiles();
 app.UseStaticFiles(
      new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(Path.Combine (Directory.GetCurrentDirectory(), "wwwroot")
+     {
+         FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
                     ),
-        RequestPath = "/wwwroot/images"
-    }
+         RequestPath = "/wwwroot/images"
+     }
 );
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-
-    var context = services.GetRequiredService<StoreContext>();
-    var result = await context.Database.GetPendingMigrationsAsync();
-    if (result.Any())
-    {
-        await context.Database.MigrateAsync();
-    }
-    await StoreContextSeed.SeedAsync(context, loggerFactory);
-
+    StoreContextMigrations(services);
+    IdentityContextMigrations(services);
 }
 
 app.Run();
 
-void ConfigureServices(IServiceCollection services)
+async void StoreContextMigrations(IServiceProvider services)
 {
-    services.AddDbContext<StoreContext>();
-    services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-    services.AddScoped<INotification, Notification>();
-    services.AddScoped<IProductRepository, ProductRepository>();
-    services.AddScoped<IBasketRepository, BasketRepository>();
-    
+    try
+    {
+        var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+        var context = services.GetRequiredService<StoreContext>();
+        var result = await context.Database.GetPendingMigrationsAsync();
+        if (result.Any())
+        {
+            await context.Database.MigrateAsync();
+        }
+        await StoreContextSeed.SeedAsync(context, loggerFactory);
+    }
+    catch (Exception ex)
+    {
+        throw new Exception(ex.Message);
+    }
 }
 
+async void IdentityContextMigrations(IServiceProvider services)
+{
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+        var result = await identityContext.Database.GetPendingMigrationsAsync();
+        if (result.Any())
+        {
+            await identityContext.Database.MigrateAsync();
+        }
+        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+    }
+    catch (Exception ex)
+    {
+        throw new Exception(ex.Message);
+    }
+}

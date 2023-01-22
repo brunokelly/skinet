@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,11 +28,18 @@ namespace Skinet.Domain.SeedOfWork
         public enum ENotificationType : byte
         {
             Default = 0,
+            [Description("500")]
             InternalServerError = 1,
             BusinessRules = 2,
+            [Description("404")]
             NotFound = 3,
+            [Description("400")]
             BadRequestError = 4,
-            Forbidden = 5
+            [Description("403")]
+            Forbidden = 5,
+            [Description("401")]
+            Unauthorized = 6,
+            
         }
     }
 }

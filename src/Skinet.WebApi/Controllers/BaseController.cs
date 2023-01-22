@@ -42,6 +42,8 @@ namespace Skinet.WebApi.Controllers
                         return BadRequest(response);
                     case ENotificationType.Forbidden:
                         return Forbid();
+                    case ENotificationType.Unauthorized:
+                        return Unauthorized(response);
                     default:
                         return StatusCode((int)HttpStatusCode.InternalServerError, response);
                 }
