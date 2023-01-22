@@ -5,6 +5,8 @@ using Skinet.Application.Accounts.Models.Response;
 using Skinet.Application.Accounts.Services.Token;
 using Skinet.Domain.Identity;
 using Skinet.Domain.SeedOfWork;
+using Skinet.Infra;
+using System.Security.Claims;
 
 namespace Skinet.Application.Accounts.Services
 {
@@ -26,6 +28,63 @@ namespace Skinet.Application.Accounts.Services
             _tokenService = tokenService;
         }
 
+        #region USER
+        public async Task<UserResponse> GetCurrentUserAsync(ClaimsPrincipal user)
+        {
+            var email = await _userManager.FindByEmailFromClaimsPrincipal(user);
+            var currentUser = await VerifyEmail(email?.Email);
+
+            if (currentUser is null)
+            {
+                _notification.AddNotification("Emal", "Unauthorized Access", NotificationModel.ENotificationType.Unauthorized);
+                return null;
+            }
+
+            return new UserResponse
+            {
+                Email = currentUser.Email,
+                DisplayName = currentUser.DisplayName,
+                Token = CreateToken(currentUser),
+            };
+        }
+
+        public async Task<bool> CheckIfEmailExistsAsync(string email)
+        {
+            return await VerifyEmail(email) is not null;
+        }
+
+        public async Task<AddressResponse> GetUserAddressAsync(ClaimsPrincipal user)
+        {
+            var currentUser = await _userManager.FindByEmailWithAddressAsync(user);
+
+            if (currentUser is null)
+            {
+                _notification.AddNotification("Address", "There is no address", NotificationModel.ENotificationType.Default);
+                return null;
+            }
+
+            return (AddressResponse)currentUser.Address;
+        }
+
+        public async Task<AddressResponse> UpdateUserAddressAsync(ClaimsPrincipal user, AddressRequest address)
+        {
+            var currentUser = await _userManager.FindByEmailWithAddressAsync(user);
+            var newAddress = new Address(address.FirstName, address.LastName, address.Street, address.City, address.State, address.ZipCode);
+            currentUser.AddUserAddress(newAddress);
+
+            var result = await _userManager.UpdateAsync(currentUser);
+
+            if(!result.Succeeded)
+            {
+                GetErrorResponseFromIdentityResult(result);
+                return new AddressResponse();
+            }
+
+            return (AddressResponse)currentUser.Address;
+        }
+
+        #endregion
+
         #region LOGIN
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
         {
@@ -46,7 +105,7 @@ namespace Skinet.Application.Accounts.Services
 
         private async Task<AppUser> VerifyUser(LoginRequest loginRequest)
         {
-            var user = await _userManager.FindByEmailAsync(loginRequest.Email);
+            var user = await VerifyEmail(loginRequest.Email);
 
             if (user is null || !await CheckPassword(user, loginRequest))
             {
@@ -55,6 +114,11 @@ namespace Skinet.Application.Accounts.Services
             };
 
             return user;
+        }
+
+        private async Task<AppUser> VerifyEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
         }
 
         private async Task<bool> CheckPassword(AppUser user, LoginRequest loginRequest)
@@ -73,10 +137,7 @@ namespace Skinet.Application.Accounts.Services
 
             if (!result.Succeeded)
             {
-                GetErrorResponseFromIdentityResult(result).ForEach(erro =>
-                {
-                    _notification.AddNotification(erro.Code, erro.Description, NotificationModel.ENotificationType.BadRequestError);
-                });
+                GetErrorResponseFromIdentityResult(result);
 
                 return new UserResponse();
             }
@@ -89,13 +150,6 @@ namespace Skinet.Application.Accounts.Services
             };
         }
 
-        private List<IdentityError> GetErrorResponseFromIdentityResult(IdentityResult result)
-        {
-            if (result is null || result.Errors.Count() == 0) return null;
-
-            return result.Errors.ToList();
-        }
-
         #endregion
 
         #region TOKEN 
@@ -104,5 +158,15 @@ namespace Skinet.Application.Accounts.Services
             return _tokenService.CreateToken(user);
         }
         #endregion
+
+        private void GetErrorResponseFromIdentityResult(IdentityResult result)
+        {
+            if (result is null || result.Errors.Count() == 0) return;
+
+            result.Errors.ToList().ForEach(erro =>
+            {
+                _notification.AddNotification(erro.Code, erro.Description, NotificationModel.ENotificationType.BadRequestError);
+            });
+        }
     }
 }

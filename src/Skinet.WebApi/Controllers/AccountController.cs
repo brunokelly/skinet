@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Skinet.Application.Accounts.Models.Request;
 using Skinet.Application.Accounts.Services;
 using Skinet.Domain.SeedOfWork;
+using System.Security.Claims;
 
 namespace Skinet.WebApi.Controllers
 {
@@ -12,6 +14,35 @@ namespace Skinet.WebApi.Controllers
         {
             _accountService = accountService;
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            return Response(await _accountService.GetCurrentUserAsync(HttpContext.User));
+        }
+
+        [Authorize]
+        [HttpGet("email")]
+        public async Task<IActionResult> VerifyUserEmail([FromQuery] string email)
+        {
+            return Response(await _accountService.CheckIfEmailExistsAsync(email));
+        }
+
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<IActionResult> GetUserAddress()
+        {
+            return Response(await _accountService.GetUserAddressAsync(HttpContext.User));
+        }
+
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<IActionResult> UpdateUserAddress(AddressRequest addressRequest)
+        {
+            return Response(await _accountService.UpdateUserAddressAsync(HttpContext.User, addressRequest));
+        }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
