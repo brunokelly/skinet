@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Skinet.Application.Basket.Models.Response;
+using Skinet.Domain.Basket;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,8 @@ namespace Skinet.Application.Basket.Services
 {
     public interface IBasketService
     {
+        Task<CustomerBasketResponse> GetBasketId(string id);
+        Task<CustomerBasketResponse> UpdateBasket(CustomerBasket customerBasket);
+        Task<bool> DeleteBasket(string id);
     }
 }
