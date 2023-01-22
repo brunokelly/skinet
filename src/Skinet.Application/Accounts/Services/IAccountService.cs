@@ -6,5 +6,6 @@ namespace Skinet.Application.Accounts.Services
     public interface IAccountService
     {
         Task<UserResponse> LoginAsync(LoginRequest loginRequest);
+        Task<UserResponse> RegisterUserAsync(RegisterRequest registerRequest);
     }
 }

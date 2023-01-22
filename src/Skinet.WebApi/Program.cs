@@ -10,15 +10,14 @@ using Skinet.Infra.Data.Context.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddLocalServices(builder.Configuration);
+builder.Services.AddLocalUnitOfWork(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddLocalServices(builder.Configuration);
-builder.Services.AddLocalUnitOfWork(builder.Configuration);
-builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
@@ -47,7 +46,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseStaticFiles();
 app.UseStaticFiles(
      new StaticFileOptions

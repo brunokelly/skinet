@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Skinet.Application.Accounts.Models.Request;
 using Skinet.Application.Accounts.Models.Response;
+using Skinet.Application.Accounts.Services.Token;
 using Skinet.Domain.Identity;
 using Skinet.Domain.SeedOfWork;
 
@@ -8,16 +10,23 @@ namespace Skinet.Application.Accounts.Services
 {
     public class AccountService : IAccountService
     {
+        readonly IConfiguration _configuration;
         readonly INotification _notification;
         readonly UserManager<AppUser> _userManager;
         readonly SignInManager<AppUser> _signInManager;
-        public AccountService(INotification notification, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        readonly ITokenService _tokenService;
+
+        public AccountService(IConfiguration configuration, INotification notification,
+                UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService)
         {
+            _configuration = configuration;
             _notification = notification;
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
+        #region LOGIN
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
         {
             var user = await VerifyUser(loginRequest);
@@ -30,7 +39,7 @@ namespace Skinet.Application.Accounts.Services
             return new UserResponse()
             {
                 Email = user.Email,
-                Token = "toekn",
+                Token = CreateToken(user),
                 DisplayName = user.DisplayName
             };
         }
@@ -54,5 +63,46 @@ namespace Skinet.Application.Accounts.Services
 
             return result is null ? false : result.Succeeded;
         }
+        #endregion
+
+        #region REGISTER
+        public async Task<UserResponse> RegisterUserAsync(RegisterRequest registerRequest)
+        {
+            var user = new AppUser(registerRequest.DisplayName, registerRequest.Email, registerRequest.Email);
+            var result = await _userManager.CreateAsync(user, registerRequest.Password);
+
+            if (!result.Succeeded)
+            {
+                GetErrorResponseFromIdentityResult(result).ForEach(erro =>
+                {
+                    _notification.AddNotification(erro.Code, erro.Description, NotificationModel.ENotificationType.BadRequestError);
+                });
+
+                return new UserResponse();
+            }
+
+            return new UserResponse
+            {
+                DisplayName = user.DisplayName,
+                Token = CreateToken(user),
+                Email = user.Email,
+            };
+        }
+
+        private List<IdentityError> GetErrorResponseFromIdentityResult(IdentityResult result)
+        {
+            if (result is null || result.Errors.Count() == 0) return null;
+
+            return result.Errors.ToList();
+        }
+
+        #endregion
+
+        #region TOKEN 
+        private string CreateToken(AppUser user)
+        {
+            return _tokenService.CreateToken(user);
+        }
+        #endregion
     }
 }

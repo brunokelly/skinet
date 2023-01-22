@@ -18,5 +18,11 @@ namespace Skinet.WebApi.Controllers
         {
             return Response(await _accountService.LoginAsync(loginRequest));
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterRequest registerRequest)
+        {
+            return Response(await _accountService.RegisterUserAsync(registerRequest));
+        }
     }
 }

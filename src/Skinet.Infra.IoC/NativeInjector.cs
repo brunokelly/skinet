@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Skinet.Application.Accounts.Services;
+using Skinet.Application.Accounts.Services.Token;
 using Skinet.Application.Basket.Services;
 using Skinet.Application.Products.Services;
 using Skinet.Domain;
@@ -16,6 +19,7 @@ using Skinet.Infra.Repository;
 using Skinet.Infra.Repository.Basket;
 using Skinet.Infra.Repository.ProductRepo;
 using StackExchange.Redis;
+using System.Text;
 
 namespace Skinet.Infra.IoC
 {
@@ -37,6 +41,7 @@ namespace Skinet.Infra.IoC
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ITokenService, TokenService>();
 
         }
         public static void AddLocalUnitOfWork(this IServiceCollection services, IConfiguration configuration)
@@ -53,11 +58,25 @@ namespace Skinet.Infra.IoC
         {
             var builder = services.AddIdentityCore<AppUser>();
 
+            var tokenKey = configuration["Token:Key"];
+            var tokenIssuer = configuration["Token:Issuer"];
+
             builder = new IdentityBuilder(builder.UserType, builder.Services);
             builder.AddEntityFrameworkStores<AppIdentityDbContext>();
             builder.AddSignInManager<SignInManager<AppUser>>();
 
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
+                        ValidIssuer = tokenIssuer,
+                        ValidateIssuer = true,
+                        ValidateAudience = false,
+                    };
+                });
 
             return services;
         }
