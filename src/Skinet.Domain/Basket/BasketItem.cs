@@ -2,6 +2,16 @@
 {
     public class BasketItem
     {
+        public BasketItem(int id, string productName, decimal price, int quantity, string pictureUrl, string brand)
+        {
+            Id = id;
+            ProductName = productName;
+            Price = price;
+            Quantity = quantity;
+            PictureUrl = pictureUrl;
+            Brand = brand;
+        }
+
         public int Id { get; private set; }
         public string ProductName { get; private set; }
         public decimal Price { get; private set; }

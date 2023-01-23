@@ -5,7 +5,8 @@ namespace Skinet.Application.Basket.Models.Response
 {
     public class CustomerBasketResponse : BaseResponse
     {
-        public CustomerBasket Items { get; set; }
+        public string Id { get; set; }
+        public List<BasketItem> Items { get; set; }
 
         public static implicit operator CustomerBasketResponse(CustomerBasket customerBasket)
         {
@@ -13,7 +14,8 @@ namespace Skinet.Application.Basket.Models.Response
 
             return new CustomerBasketResponse()
             {
-                Items = customerBasket
+                Id = customerBasket.Id,
+                Items = customerBasket.Items.Select(x => x).ToList()
             };
         }
     }
