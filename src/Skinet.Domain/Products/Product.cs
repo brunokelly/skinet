@@ -50,11 +50,7 @@ namespace Skinet.Domain.ProductModel
         public decimal Price { get; private set; }
         public string PictureUrl { get; private set; }
         public ProductType ProductType { get; private set; }
-        [NotMapped]
-        public int ProductTypeId { get; private set; }
         public ProductBrand ProductBrand { get; private set; }
-        [NotMapped]
-        public int ProductBrandId { get; private set; }
 
 
         public void AddProductType(ProductType productType)

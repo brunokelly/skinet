@@ -33,8 +33,6 @@ namespace Skinet.Infra.Data.SeedData
                     {
                         context.ProductBrands.Add(x);
                     });
-
-                    await context.SaveChangesAsync();
                 }
 
                 if (!context.ProductTypes.Any())
@@ -43,8 +41,6 @@ namespace Skinet.Infra.Data.SeedData
                     var types = JsonConvert.DeserializeObject<List<ProductType>>(typesData);
 
                     await context.ProductTypes.AddRangeAsync(types);
-
-                    await context.SaveChangesAsync();
                 }
 
                 if (!context.Products.Any())
@@ -54,11 +50,9 @@ namespace Skinet.Infra.Data.SeedData
 
                     products.ForEach(product =>
                     {
-                        product.AddProductBrand(context.ProductBrands.FirstOrDefault(x => x.Id == product.ProductBrandId));
-                        product.AddProductType(context.ProductTypes.FirstOrDefault(x => x.Id == product.ProductTypeId));
+                        product.AddProductBrand(context.ProductBrands.FirstOrDefault(x => x.Id == product.ProductBrand.Id));
+                        product.AddProductType(context.ProductTypes.FirstOrDefault(x => x.Id == product.ProductType.Id));
                     });
-
-                    await context.Products.AddRangeAsync(products);
                 }
 
                 await context.SaveChangesAsync();
