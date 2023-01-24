@@ -46,10 +46,7 @@ namespace Skinet.Infra.IoC
         }
         public static void AddLocalUnitOfWork(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<StoreContext>(x =>
-            {
-                x.UseSqlite("Data source=skinet.db");
-            });
+            services.AddDbContext<StoreContext>();
 
             services.AddDbContext<AppIdentityDbContext>();
         }

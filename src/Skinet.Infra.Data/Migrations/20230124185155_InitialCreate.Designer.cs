@@ -10,14 +10,13 @@ using Skinet.Infra.Data.Context;
 namespace Skinet.Infra.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20221231154853_ConstructorProduct")]
-    partial class ConstructorProduct
+    [Migration("20230124185155_InitialCreate")]
+    partial class InitialCreate
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.13");
 
             modelBuilder.Entity("Skinet.Domain.ProductModel.Product", b =>
                 {
@@ -39,7 +38,7 @@ namespace Skinet.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductBrandId")
@@ -93,13 +92,15 @@ namespace Skinet.Infra.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ProductBrandId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductBrandId");
 
                     b.HasOne("Skinet.Domain.ProductModel.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductTypeId");
 
                     b.Navigation("ProductBrand");
 

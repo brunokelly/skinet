@@ -48,11 +48,8 @@ namespace Skinet.Infra.Data.SeedData
                     var productData = File.ReadAllText(productsDir);
                     var products = JsonConvert.DeserializeObject<List<Product>>(productData);
 
-                    products.ForEach(product =>
-                    {
-                        product.AddProductBrand(context.ProductBrands.FirstOrDefault(x => x.Id == product.ProductBrand.Id));
-                        product.AddProductType(context.ProductTypes.FirstOrDefault(x => x.Id == product.ProductType.Id));
-                    });
+                    
+                    await context.Products.AddRangeAsync(products);
                 }
 
                 await context.SaveChangesAsync();

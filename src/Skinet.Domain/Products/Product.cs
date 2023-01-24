@@ -27,8 +27,8 @@ namespace Skinet.Domain.ProductModel
             Description = description;
             Price = price;
             PictureUrl = pictureUrl;
-            ProductBrand = new ProductBrand { Id = productBrandId };
-            ProductType = new ProductType {Id = productTypeId };
+            ProductBrandId = productBrandId;
+            ProductTypeId = productTypeId;
         }
 
         public string Name { get; private set; }
