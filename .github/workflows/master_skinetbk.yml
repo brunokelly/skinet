@@ -4,9 +4,9 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - skinetbk
 
 on:
-  pull_request_target:
+  push:
     branches:
-      - master
+      - develop
     paths:
       - '/src/**'
   workflow_dispatch:
