@@ -26,14 +26,13 @@ namespace Skinet.Infra.Data.SeedData
 
                 if (!context.ProductBrands.Any())
                 {
-                    var brandsData = File.ReadAllText(brandsDir);
-                    var brands = JsonConvert.DeserializeObject<List<ProductBrand>>(brandsData);
+                    var brandsDataJson = File.ReadAllText(brandsDir);
+                    var brands = JsonConvert.DeserializeObject<List<ProductBrand>>(brandsDataJson);
 
                     brands.ForEach(x =>
                     {
                         context.ProductBrands.Add(x);
                     });
-                   
                 }
 
                 if (!context.ProductTypes.Any())
@@ -43,13 +42,14 @@ namespace Skinet.Infra.Data.SeedData
 
                     await context.ProductTypes.AddRangeAsync(types);
                 }
-                
+
                 if (!context.Products.Any())
                 {
                     var productData = File.ReadAllText(productsDir);
-                    var product = JsonConvert.DeserializeObject<List<Product>>(productData);
+                    var products = JsonConvert.DeserializeObject<List<Product>>(productData);
 
-                    await context.Products.AddRangeAsync(product);
+                    
+                    await context.Products.AddRangeAsync(products);
                 }
 
                 await context.SaveChangesAsync();
