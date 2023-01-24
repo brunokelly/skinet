@@ -108,7 +108,7 @@ async void StoreContextMigrations(IServiceProvider services)
         {
             await context.Database.MigrateAsync();
         }
-        await StoreContextSeed.SeedAsync(context, loggerFactory);
+        await StoreContextSeed.SeedAsync(context, loggerFactory, builder.Configuration);
     }
     catch (Exception ex)
     {
