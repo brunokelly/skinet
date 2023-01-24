@@ -13,8 +13,8 @@ namespace Skinet.Infra.Data.Configuration
             builder.Property(p => p.Description).IsRequired().HasMaxLength(180);
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
             builder.Property(p => p.PictureUrl).IsRequired();
-            builder.HasOne(b => b.ProductBrand).WithMany();
-            builder.HasOne(b => b.ProductType).WithMany();
+            builder.HasOne(b => b.ProductBrand).WithMany().HasForeignKey(x => x.ProductBrandId);
+            builder.HasOne(b => b.ProductType).WithMany().HasForeignKey(x => x.ProductTypeId);
         }
     }
 }
