@@ -27,14 +27,8 @@ namespace Skinet.Domain.ProductModel
             Description = description;
             Price = price;
             PictureUrl = pictureUrl;
-            ProductBrand = new ProductBrand
-            {
-                Id = productBrandId
-            };
-            ProductType = new ProductType
-            {
-                Id = productTypeId
-            };
+            ProductBrand = new ProductBrand { Id = productBrandId };
+            ProductType = new ProductType {Id = productTypeId };
         }
 
         public static implicit operator Product(string Json)
