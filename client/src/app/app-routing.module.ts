@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/checkout/checkout.module').then((x) => x.CheckoutModule)
   },
   {
+    path: 'account',
+    data: { title: 'Account', breadcrumb: 'Account' },
+    loadChildren: () => import('./pages/account/account.module').then((x) => x.AccountModule)
+  },
+  {
     path: 'error',
     data: { title: 'Error' },
     loadChildren: () => import('./core/core.module').then((x) => x.CoreModule),

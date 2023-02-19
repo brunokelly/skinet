@@ -29,7 +29,7 @@
       <div *ngIf="(basket$ | async) as basket" class="cart-no">{{basket.items.length}}</div>
     </a>
 
-    <a href="" class="m-1 btn btn-outline-secondary mr-2">Login</a>
-    <a href="" class="m-1 btn btn-outline-secondary mr-3">Sign Up</a>
+    <a routerLink="/account/login" class="m-1 btn btn-outline-secondary mr-2">Login</a>
+    <a routerLink="/account/register" class="m-1 btn btn-outline-secondary mr-3">Sign Up</a>
   </div>
 </header>
