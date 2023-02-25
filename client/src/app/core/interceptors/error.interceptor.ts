@@ -19,7 +19,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(errorResponse => {
         var error = errorResponse as IErrorModel;
-
         if (error) {
           if(error.status === 400)
           {
