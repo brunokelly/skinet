@@ -76,7 +76,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseStaticFiles();
 app.UseStaticFiles(
      new StaticFileOptions
