@@ -1,5 +1,4 @@
 ﻿using Skinet.Domain.Common;
-using Skinet.Domain.Identity;
 
 namespace Skinet.Domain.Orders
 {
@@ -9,7 +8,7 @@ namespace Skinet.Domain.Orders
         {
         }
 
-        public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, Address shipToAddress,
+        public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, OrderAddress shipToAddress,
             DeliveryMethod deliveryMethod, decimal subtotal, string paymentIntentId)
         {
             BuyerEmail = buyerEmail;
@@ -22,7 +21,7 @@ namespace Skinet.Domain.Orders
 
         public string BuyerEmail { get; private set; }
         public DateTime OrderDate { get; private set; } = DateTime.UtcNow;
-        public Address ShipToAddress { get; private set; }
+        public OrderAddress ShipToAddress { get; private set; }
         public DeliveryMethod DeliveryMethod { get; private set; }
         public IReadOnlyList<OrderItem> OrderItems { get; private set; }
         public decimal Subtotal { get; private set; }
