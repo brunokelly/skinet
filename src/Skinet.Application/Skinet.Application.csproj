@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Orders\Models\" />
-    <Folder Include="Orders\Services\" />
     <Folder Include="Products\Models\Dto\" />
     <Folder Include="Products\Models\Request\" />
   </ItemGroup>
@@ -21,7 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
-    <ProjectReference Include="..\Skinet.Infra\Skinet.Infra.csproj" />
+    <ProjectReference Include="..\Skinet.Infra.Data\Skinet.Infra.Data.csproj" />
+    <ProjectReference Include="..\Skinet.Infra\Skinet.Infra.Utils.csproj" />
   </ItemGroup>
 
 </Project>

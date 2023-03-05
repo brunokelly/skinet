@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Skinet.Domain.Identity;
 using System.Security.Claims;
 
-namespace Skinet.Infra
+namespace Skinet.Infra.Utils.Extensions
 {
     public static class UserManagerExtensions
     {

@@ -13,7 +13,14 @@ namespace Skinet.Domain.Basket
             Id = id;
         }
 
+        public CustomerBasket(string id, string paymentIntentId)
+        {
+            Id = id;
+            PaymentIntentId = paymentIntentId;
+        }
+
         public string Id { get; private set; }
         public List<BasketItem> Items { get; set; } = new();
+        public string PaymentIntentId { get; private set; }
     }
 }

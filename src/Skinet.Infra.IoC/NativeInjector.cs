@@ -7,16 +7,20 @@ using Microsoft.IdentityModel.Tokens;
 using Skinet.Application.Accounts.Services;
 using Skinet.Application.Accounts.Services.Token;
 using Skinet.Application.Basket.Services;
+using Skinet.Application.Orders.Services;
 using Skinet.Application.Products.Services;
 using Skinet.Domain;
 using Skinet.Domain.Basket.Repository;
 using Skinet.Domain.Identity;
+using Skinet.Domain.Orders.Repository;
 using Skinet.Domain.ProductModel.Repository;
 using Skinet.Domain.SeedOfWork;
+using Skinet.Infra.Data;
 using Skinet.Infra.Data.Context;
 using Skinet.Infra.Data.Context.Identity;
 using Skinet.Infra.Repository;
 using Skinet.Infra.Repository.Basket;
+using Skinet.Infra.Repository.Orders;
 using Skinet.Infra.Repository.ProductRepo;
 using StackExchange.Redis;
 using System.Text;
@@ -37,11 +41,13 @@ namespace Skinet.Infra.IoC
             services.AddScoped<INotification, Notification>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IOrderService, OrderService>();
 
         }
         public static void AddLocalUnitOfWork(this IServiceCollection services, IConfiguration configuration)
@@ -49,6 +55,7 @@ namespace Skinet.Infra.IoC
             services.AddDbContext<StoreContext>();
 
             services.AddDbContext<AppIdentityDbContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public static IServiceCollection AddIdentityServices(this IServiceCollection services , IConfiguration configuration)

@@ -5,7 +5,8 @@ using Skinet.Application.Accounts.Models.Response;
 using Skinet.Application.Accounts.Services.Token;
 using Skinet.Domain.Identity;
 using Skinet.Domain.SeedOfWork;
-using Skinet.Infra;
+using Skinet.Infra.Utils;
+using Skinet.Infra.Utils.Extensions;
 using System.Security.Claims;
 
 namespace Skinet.Application.Accounts.Services

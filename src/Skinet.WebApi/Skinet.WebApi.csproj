@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,7 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.6.90" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
@@ -28,7 +28,7 @@
     <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
     <ProjectReference Include="..\Skinet.Infra.Data\Skinet.Infra.Data.csproj" />
     <ProjectReference Include="..\Skinet.Infra.IoC\Skinet.Infra.IoC.csproj" />
-    <ProjectReference Include="..\Skinet.Infra\Skinet.Infra.csproj" />
+    <ProjectReference Include="..\Skinet.Infra\Skinet.Infra.Utils.csproj" />
   </ItemGroup>
 
 </Project>

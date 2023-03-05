@@ -32,5 +32,21 @@ namespace Skinet.Domain.Orders
         {
             return Subtotal + DeliveryMethod.Price;
         }
+
+        public void UpdateOrderAddress(OrderAddress orderAddress)
+        {
+            ShipToAddress = orderAddress ?? ShipToAddress;
+        }
+
+        public void UpdateDeliveryMethod(DeliveryMethod delivery)
+        {
+            DeliveryMethod = delivery ?? DeliveryMethod;
+        }
+
+        public void UpdateSubtotal(decimal subtotal)
+        {
+            Subtotal = subtotal;
+        }
+
     }
 }

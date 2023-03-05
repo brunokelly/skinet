@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Application", "Skine
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{035E305C-F896-4332-8420-7D1AD3C74C21}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Infra", "Skinet.Infra\Skinet.Infra.csproj", "{B92D7DCF-857C-459E-9003-D0B4CE0AB6E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Infra.Utils", "Skinet.Infra\Skinet.Infra.Utils.csproj", "{B92D7DCF-857C-459E-9003-D0B4CE0AB6E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{08CF41F2-0AA2-4CEC-BF65-FB5361A2F9BE}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Domain", "Skinet.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Infra.Data", "Skinet.Infra.Data\Skinet.Infra.Data.csproj", "{052F5735-B827-49ED-837B-66E5A721E7E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Infra.IoC", "Skinet.Infra.IoC\Skinet.Infra.IoC.csproj", "{9EED724D-434C-4788-BEBD-C2EDF2D2CD76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Infra.IoC", "Skinet.Infra.IoC\Skinet.Infra.IoC.csproj", "{9EED724D-434C-4788-BEBD-C2EDF2D2CD76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

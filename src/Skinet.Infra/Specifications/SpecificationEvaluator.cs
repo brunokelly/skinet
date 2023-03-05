@@ -3,7 +3,7 @@ using Skinet.Domain.Common;
 using Skinet.Domain.Specifications;
 using System.Data;
 
-namespace Skinet.Infra.Data
+namespace Skinet.Infra.Utils
 {
     public class SpecificationEvaluator<T> where T : Entity
     {

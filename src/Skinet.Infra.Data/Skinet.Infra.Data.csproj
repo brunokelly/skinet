@@ -14,10 +14,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Skinet.Domain\Skinet.Domain.csproj" />
+    <ProjectReference Include="..\Skinet.Infra\Skinet.Infra.Utils.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Skinet.Application.Common;
 using Skinet.Domain.SeedOfWork;
+using Skinet.Infra.Utils.Extensions;
 using System.Net;
 using static Skinet.Domain.SeedOfWork.NotificationModel;
 
@@ -99,6 +100,11 @@ namespace Skinet.WebApi.Controllers
                 success = false,
                 error = _notification.NotificationModel
             });
+        }
+
+        protected string GetCustomerEmail()
+        {
+            return HttpContext.User.RetriveEmailFromPrincipal();
         }
     }
 }
