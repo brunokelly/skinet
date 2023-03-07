@@ -7,6 +7,6 @@ namespace Skinet.Application.Orders.Models.Requests
         public string BuyerEmail { get; set; }
         public string BasketId { get; set; }
         public int DeliveryMethodId { get; set; }
-        public OrderAddress ShipToAddress { get; set; }
+        public OrderAddressRequest ShipToAddress { get; set; }
     }
 }

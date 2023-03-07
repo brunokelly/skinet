@@ -6,8 +6,8 @@ namespace Skinet.Application.Orders.Services
     public interface IOrderService
     {
         Task<OrderResponse> CreateOrderAsync(string email, OrderRequest orderRequest);
-        Task<OrderListResponse> GetOrdersForUserAsync(string buyerEmail);
+        Task<OrderListResponse> GetOrdersForUserAsync( string buyerEmail);
         Task<OrderResponse> GetOrderByIdAsync(int id, string buyerEmail);
-        Task<DeliveryMethodListReponse> GetDeliveryMethodsAsync();
+        Task<DeliveryMethodListReponse> GetDeliveryMethodsAsync(string email);
     }
 }

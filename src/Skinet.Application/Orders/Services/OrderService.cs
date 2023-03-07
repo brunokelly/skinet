@@ -39,11 +39,11 @@ namespace Skinet.Application.Orders.Services
             var items = await GetProducts(basket);
             if(items is null) return new OrderResponse();
 
-            var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
+            var spec = new OrderByPaymentIntentIdSpecification(basket.Id);
             var order = await _orderRepository.GetEntityWithSpec(spec);
 
             // check to see if order exists
-            await CreateNewOrder(order, orderRequest, items, buyerEmail, basket.PaymentIntentId);
+            await CreateNewOrder(order, orderRequest, items, buyerEmail, basket.Id);
             // save to db
              _orderRepository.SaveChanges();
 
@@ -51,7 +51,7 @@ namespace Skinet.Application.Orders.Services
             return (OrderResponse)order;
         }
 
-        public async Task<DeliveryMethodListReponse> GetDeliveryMethodsAsync()
+        public async Task<DeliveryMethodListReponse> GetDeliveryMethodsAsync(string email)
         {
             return await _deliveryMethodService.ListAllAsync();
         }
@@ -75,17 +75,17 @@ namespace Skinet.Application.Orders.Services
             var deliveryMethod = await _deliveryMethodService.GetDeliveryMethodByIdAsync(orderRequest.DeliveryMethodId);
 
             var subtotal = items.Sum(item => item.Price * item.Quantity);
-
+            var shipAddress = new OrderAddress(orderRequest.ShipToAddress.FirstName, orderRequest.ShipToAddress.LastName, orderRequest.ShipToAddress.Street, orderRequest.ShipToAddress.City, orderRequest.ShipToAddress.State, orderRequest.ShipToAddress.Zipcode);
             if (order != null)
             {
-                order.UpdateOrderAddress(order.ShipToAddress);
+                order.UpdateOrderAddress(shipAddress);
                 order.UpdateDeliveryMethod(deliveryMethod);
                 order.UpdateSubtotal(subtotal);
                 _orderRepository.Update(order);
             }
             else
             {
-                order = new Order(items, buyerEmail, orderRequest.ShipToAddress, deliveryMethod,
+                order = new Order(items, buyerEmail, shipAddress, deliveryMethod,
                     subtotal, paymentIntentId);
                 _orderRepository.Add(order);
             }

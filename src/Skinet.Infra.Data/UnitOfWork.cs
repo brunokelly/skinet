@@ -15,10 +15,6 @@ namespace Skinet.Infra.Data
         {
             Context = context;
         }
-        public Task<int> Complete()
-        {
-            throw new NotImplementedException();
-        }
 
         public void Dispose()
         {

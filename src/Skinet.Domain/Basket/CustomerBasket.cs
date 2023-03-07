@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skinet.Domain.Basket
+﻿namespace Skinet.Domain.Basket
 {
     public class CustomerBasket
     {
-        public CustomerBasket(string id)
+        protected CustomerBasket()
         {
-            Id = id;
         }
 
-        public CustomerBasket(string id, string paymentIntentId)
+        public CustomerBasket(string? id, List<BasketItem>? items = null, string? paymentIntentId = null)
         {
             Id = id;
+            Items = items;
             PaymentIntentId = paymentIntentId;
         }
 
         public string Id { get; private set; }
         public List<BasketItem> Items { get; set; } = new();
-        public string PaymentIntentId { get; private set; }
+        public string? PaymentIntentId { get; private set; }
     }
 }

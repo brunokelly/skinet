@@ -1,4 +1,5 @@
 ﻿
+using Skinet.Application.Basket.Models.Request;
 using Skinet.Application.Basket.Models.Response;
 using Skinet.Application.Common;
 using Skinet.Domain.Basket;
@@ -25,9 +26,18 @@ namespace Skinet.Application.Basket.Services
             return (CustomerBasketResponse)await _basketRepository.GetBasketAsync(id);
         }
 
-        public async Task<CustomerBasketResponse> UpdateBasket(CustomerBasket customerBasket)
-        {
-            return (CustomerBasketResponse)await _basketRepository.UpdateBasketAsync(customerBasket);
+        public async Task<CustomerBasketResponse> UpdateBasket(CustomerBasketRequest customerBasket)
+        { 
+            if (customerBasket is null) return new CustomerBasketResponse();
+
+            var items = new List<BasketItem>();
+            customerBasket.Items.ForEach(x =>
+            {
+                items.Add(new BasketItem(x.Id, x.ProductName, x.Price, x.Quantity, x.PictureUrl, x.Brand));
+            });
+
+            var basket = new CustomerBasket(customerBasket.Id, items, "");
+            return (CustomerBasketResponse)await _basketRepository.UpdateBasketAsync(basket);
         }
     }
 }

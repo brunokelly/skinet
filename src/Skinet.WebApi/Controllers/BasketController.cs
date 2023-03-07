@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Skinet.Application.Basket.Models.Request;
 using Skinet.Application.Basket.Services;
 using Skinet.Domain.Basket;
 using Skinet.Domain.SeedOfWork;
@@ -21,7 +22,7 @@ namespace Skinet.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBasket(CustomerBasket customerBasket)
+        public async Task<IActionResult> UpdateBasket(CustomerBasketRequest customerBasket)
         {
             return Response(await _basketService.UpdateBasket(customerBasket));
         }

@@ -8,7 +8,6 @@ namespace Skinet.Infra.Data
     {
         StoreContext Context { get; }
         //IBaseRepository<TEntity> Repository<TEntity>() where TEntity : Entity;
-        Task<int> Complete();
         void SaveChanges();
         Task<int> SaveChangesAsync();
     }

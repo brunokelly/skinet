@@ -18,6 +18,7 @@ using Skinet.Domain.SeedOfWork;
 using Skinet.Infra.Data;
 using Skinet.Infra.Data.Context;
 using Skinet.Infra.Data.Context.Identity;
+using Skinet.Infra.Data.Repository.Orders;
 using Skinet.Infra.Repository;
 using Skinet.Infra.Repository.Basket;
 using Skinet.Infra.Repository.Orders;
@@ -42,12 +43,14 @@ namespace Skinet.Infra.IoC
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IDeliveryMethodService, DeliveryMethodService>();
 
         }
         public static void AddLocalUnitOfWork(this IServiceCollection services, IConfiguration configuration)
