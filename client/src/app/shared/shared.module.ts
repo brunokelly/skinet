@@ -1,10 +1,9 @@
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbDropdownModule, NgbPaginationModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { ReactiveFormsModule } from '@angular/forms';
-import {CdkStepperModule} from '@angular/cdk/stepper'
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
