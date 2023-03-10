@@ -4,7 +4,7 @@ export interface User {
   token: string;
 }
 
-export interface Address {
+export class Address {
   firstName: string;
   lastName: string;
   street: string;

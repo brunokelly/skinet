@@ -5,4 +5,5 @@ export interface IBasketItem {
   quantity: number;
   pictureUrl: string;
   brand: string;
+  type: string;
 }

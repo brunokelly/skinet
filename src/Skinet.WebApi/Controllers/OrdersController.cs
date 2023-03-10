@@ -8,7 +8,6 @@ using Skinet.Infra.Utils.Extensions;
 
 namespace Skinet.WebApi.Controllers
 {
-    [Authorize]
     public class OrdersController : BaseController
     {
         readonly IOrderService _orderService;
@@ -30,7 +29,7 @@ namespace Skinet.WebApi.Controllers
         {
             var email = GetCustomerEmail();
 
-            return Response(await _orderService.GetOrdersForUserAsync(email, orderRequest));
+            return Response(await _orderService.GetOrdersForUserAsync(email));
         }
 
         [HttpGet("{id}")]
@@ -38,13 +37,14 @@ namespace Skinet.WebApi.Controllers
         {
             var email = GetCustomerEmail();
 
-            return  Response(await _orderService.GetOrderByIdAsync(email, orderRequest));
+            return  Response(await _orderService.GetOrderByIdAsync(id, email));
     }
 
         [HttpGet("deliveryMethods")]
         public async Task<IActionResult> GetDeliveryMethods()
         {
-        return Response(await _orderService.GetDeliveryMethodsAsync(email, orderRequest));
+            var email = GetCustomerEmail();
+            return Response(await _orderService.GetDeliveryMethodsAsync(email));
     }
     }
 }

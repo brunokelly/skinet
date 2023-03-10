@@ -1,14 +1,16 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, of, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { map, of, ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/shared/models/user';
+import { Address, User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+
+
   baseUrl = environment.baseUrl;
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
@@ -68,5 +70,11 @@ export class AccountService {
     return this.http.get<boolean>(this.baseUrl + 'account/email?email=' + email)
   }
 
+  getUserAddress() {
+    return this.http.get<Address>(this.baseUrl + 'account/address');
+  }
 
+  updateUserAddress(address: Address) {
+    return this.http.put(this.baseUrl + 'account/address', address);
+  }
 }
