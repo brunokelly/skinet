@@ -15,32 +15,32 @@ namespace Skinet.WebApi.Controllers
             _accountService = accountService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<IActionResult> GetCurrentUser()
         {
-            return Response(await _accountService.GetCurrentUserAsync(HttpContext.User));
+            return Response(await _accountService.GetCurrentUserAsync(User));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("email")]
         public async Task<IActionResult> VerifyUserEmail([FromQuery] string email)
         {
             return Response(await _accountService.CheckIfEmailExistsAsync(email));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("address")]
         public async Task<IActionResult> GetUserAddress()
         {
-            return Response(await _accountService.GetUserAddressAsync(HttpContext.User));
+            return Response(await _accountService.GetUserAddressAsync(User));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("address")]
         public async Task<IActionResult> UpdateUserAddress(AddressRequest addressRequest)
         {
-            return Response(await _accountService.UpdateUserAddressAsync(HttpContext.User, addressRequest));
+            return Response(await _accountService.UpdateUserAddressAsync(User, addressRequest));
         }
 
 
