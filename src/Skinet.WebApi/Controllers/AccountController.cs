@@ -15,7 +15,7 @@ namespace Skinet.WebApi.Controllers
             _accountService = accountService;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetCurrentUser()
         {
@@ -29,7 +29,7 @@ namespace Skinet.WebApi.Controllers
             return Response(await _accountService.CheckIfEmailExistsAsync(email));
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("address")]
         public async Task<IActionResult> GetUserAddress()
         {

@@ -66,12 +66,14 @@ namespace Skinet.Infra.IoC
 
         public static IServiceCollection AddIdentityServices(this IServiceCollection services , IConfiguration configuration)
         {
+            var builder = services.AddIdentityCore<AppUser>();
+
             var tokenKey = configuration["Token:Key"];
             var tokenIssuer = configuration["Token:Issuer"];
 
-            services.AddIdentity<AppUser, IdentityRole>()
-                .AddSignInManager<SignInManager<AppUser>>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>();
+            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddEntityFrameworkStores<AppIdentityDbContext>();
+            builder.AddSignInManager<SignInManager<AppUser>>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
