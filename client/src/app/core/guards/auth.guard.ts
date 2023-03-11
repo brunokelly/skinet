@@ -21,10 +21,11 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map((auth) => {
-        if (auth) return true;
+        if (localStorage.getItem('token')) return true;
         else {
-          this.router.navigate(['/account/login'], {
-            queryParams: { returnUrl: state.url },
+          console.log("a")
+          this.router.navigate(['login'], {
+            queryParams: { returnUrl: encodeURIComponent(state.url) },
           });
           return false;
         }

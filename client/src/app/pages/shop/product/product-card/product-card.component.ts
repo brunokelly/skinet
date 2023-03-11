@@ -12,7 +12,6 @@ export class ProductCardComponent implements OnInit {
   constructor(private basketService: BasketService) { }
 
   ngOnInit(): void {
-
   }
 
   addItemToBasket(){

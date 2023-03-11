@@ -16,6 +16,9 @@ import { BasketSummaryComponent } from './pages/basket-summary/basket-summary.co
     CommonModule,
     BasketRoutingModule,
     SharedModule
+  ],
+  exports: [
+    BasketSummaryComponent
   ]
 })
 export class BasketModule { }

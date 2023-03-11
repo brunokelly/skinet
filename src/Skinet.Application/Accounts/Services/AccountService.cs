@@ -37,7 +37,7 @@ namespace Skinet.Application.Accounts.Services
 
             if (currentUser is null)
             {
-                _notification.AddNotification("Emal", "Unauthorized Access", NotificationModel.ENotificationType.Unauthorized);
+                _notification.AddNotification("Email", "Unauthorized Access", NotificationModel.ENotificationType.Unauthorized);
                 return null;
             }
 
@@ -95,13 +95,19 @@ namespace Skinet.Application.Accounts.Services
             {
                 return new UserResponse();
             }
-
-            return new UserResponse()
+            
+            var userResponse = new UserResponse()
             {
                 Email = user.Email,
                 Token = CreateToken(user),
                 DisplayName = user.DisplayName
             };
+
+            var userToLogin = await VerifyEmail(userResponse.Email);
+
+            var teste = await _signInManager.PasswordSignInAsync(userToLogin, loginRequest.Password, false, false);
+
+            return userResponse;
         }
 
         private async Task<AppUser> VerifyUser(LoginRequest loginRequest)
