@@ -16,12 +16,15 @@ import { DeliveryMethod } from '../../checkout/pages/models/delivery-method';
 export class BasketService {
 
   private baseUrl = environment.baseUrl;
+
   private basketSource = new BehaviorSubject<IBasket>(null)
-  public basket$ = this.basketSource.asObservable();
+  public basketSource$ = this.basketSource.asObservable();
+
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null);
-  basketTotal$ = this.basketTotalSource.asObservable();
+  basketTotalSource$ = this.basketTotalSource.asObservable();
 
   constructor(private http: HttpClient) { }
+
 
   getBasket(id: string) {
     return this.http.get<Basket>(this.baseUrl + 'basket?id=' + id).subscribe({
@@ -127,6 +130,7 @@ export class BasketService {
       basket.shippingPrice = deliveryMethod.price;
       basket.deliveryMethodId = deliveryMethod.id;
       this.setBasket(basket);
+      this.calculateTotals();
     }
   }
 

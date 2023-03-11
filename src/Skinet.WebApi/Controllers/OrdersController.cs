@@ -8,6 +8,7 @@ using Skinet.Infra.Utils.Extensions;
 
 namespace Skinet.WebApi.Controllers
 {
+    [Authorize]
     public class OrdersController : BaseController
     {
         readonly IOrderService _orderService;

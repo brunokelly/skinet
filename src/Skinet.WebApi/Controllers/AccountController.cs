@@ -22,7 +22,7 @@ namespace Skinet.WebApi.Controllers
             return Response(await _accountService.GetCurrentUserAsync(User));
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("email")]
         public async Task<IActionResult> VerifyUserEmail([FromQuery] string email)
         {
@@ -36,7 +36,7 @@ namespace Skinet.WebApi.Controllers
             return Response(await _accountService.GetUserAddressAsync(User));
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPut("address")]
         public async Task<IActionResult> UpdateUserAddress(AddressRequest addressRequest)
         {

@@ -25,6 +25,7 @@ export class AccountService {
     }
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
+    
     return this.http.get<User>(this.baseUrl + 'account', {headers}).pipe(
       map(user => {
         if (user) {
@@ -70,10 +71,10 @@ export class AccountService {
   }
 
   getUserAddress() {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
-    
-    return this.http.get<Address>(this.baseUrl + 'account/address', {headers});
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    return this.http.get<Address>(this.baseUrl + 'account/address');
   }
 
   updateUserAddress(address: Address) {
