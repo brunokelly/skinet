@@ -16,12 +16,11 @@ import { DeliveryMethod } from '../../checkout/pages/models/delivery-method';
 export class BasketService {
 
   private baseUrl = environment.baseUrl;
-
   private basketSource = new BehaviorSubject<IBasket>(null)
   public basketSource$ = this.basketSource.asObservable();
-
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null);
-  basketTotalSource$ = this.basketTotalSource.asObservable();
+  public basketTotalSource$ = this.basketTotalSource.asObservable();
+  private shipping = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -50,7 +49,6 @@ export class BasketService {
 
   addItemToBasket(item: IProduct | IBasketItem, quantity = 1) {
     if (this.isProduct(item)) item = this.mapProductItemToBasketItem(item);
-    console.log(item);
     const basket = this.getCurrentBasketValue() ?? this.createBasket();
     basket.items = this.addOrUpdateItem(basket.items, item, quantity);
     this.setBasket(basket);
@@ -116,8 +114,9 @@ export class BasketService {
     const basket = this.getCurrentBasketValue();
     if (!basket) return;
     const subtotal = basket.items.reduce((a, b) => (b.price * b.quantity) + a, 0);
-    const total = subtotal + basket.shippingPrice;
-    this.basketTotalSource.next({shipping: basket.shippingPrice, total, subtotal});
+    const total = subtotal + this.shipping;
+
+    this.basketTotalSource.next({shipping: this.shipping, total, subtotal});
   }
 
   private isProduct(item: IProduct | IBasketItem): item is IProduct {
@@ -127,6 +126,7 @@ export class BasketService {
   setShippingPrice(deliveryMethod: DeliveryMethodItem) {
     const basket = this.getCurrentBasketValue();
     if (basket) {
+      this.shipping =+ deliveryMethod.price;
       basket.shippingPrice = deliveryMethod.price;
       basket.deliveryMethodId = deliveryMethod.id;
       this.setBasket(basket);
