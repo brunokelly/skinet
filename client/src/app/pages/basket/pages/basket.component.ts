@@ -10,26 +10,17 @@ import { IBasketTotals } from '../models/interfaces/ibasket-totals';
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss']
 })
-export class BasketComponent implements OnInit {
+export class BasketComponent {
   basket$: Observable<IBasket>;
   basketTotals$: Observable<IBasketTotals>;
 
-  constructor(private basketService: BasketService) { }
+  constructor(public basketService: BasketService) {}
 
-  ngOnInit(): void {
-    this.basket$ = this.basketService.basket$;
-    this.basketTotals$ = this.basketService.basketTotal$;
+  incrementQuantity(item: IBasketItem) {
+    this.basketService.addItemToBasket(item);
   }
 
-  removeBasketItem(item: IBasketItem) {
-    this.basketService.removeItemFromBasket(item);
-  }
-
-  incrementItemQuantity(item: IBasketItem) {
-    this.basketService.incrementItemQuantity(item);
-  }
-
-  decrementItemQuantity(item: IBasketItem) {
-    this.basketService.decrementItemQuantity(item);
+  removeItem(event: {id: number, quantity: number}) {
+    this.basketService.removeItemFromBasket(event.id, event.quantity);
   }
 }

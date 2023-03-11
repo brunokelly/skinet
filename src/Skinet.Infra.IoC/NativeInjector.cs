@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,7 @@ using Skinet.Infra.Repository.Basket;
 using Skinet.Infra.Repository.Orders;
 using Skinet.Infra.Repository.ProductRepo;
 using StackExchange.Redis;
+using System;
 using System.Text;
 
 namespace Skinet.Infra.IoC
@@ -84,6 +87,7 @@ namespace Skinet.Infra.IoC
                         ValidateAudience = false,
                     };
                 });
+           
 
             return services;
         }

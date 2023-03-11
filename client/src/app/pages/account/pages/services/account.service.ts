@@ -1,26 +1,28 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, of, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { map, of, ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/shared/models/user';
+import { Address, User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+
+
   baseUrl = environment.baseUrl;
-  private currentUserSource = new BehaviorSubject<User | null>(null);
+  private currentUserSource = new ReplaySubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
   loadCurrentUser(token: string | null) {
+
     if (token == null) {
       this.currentUserSource.next(null);
       return of(null);
     }
-
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
@@ -61,12 +63,18 @@ export class AccountService {
   {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
-    this.router.navigateByUrl('')
+    this.router.navigateByUrl('/')
   }
 
   checkEmailExisits(email: string){
     return this.http.get<boolean>(this.baseUrl + 'account/email?email=' + email)
   }
 
+  getUserAddress() {
+    return this.http.get<Address>(this.baseUrl + 'account/address');
+  }
 
+  updateUserAddress(address: Address) {
+    return this.http.put(this.baseUrl + 'account/address', address);
+  }
 }

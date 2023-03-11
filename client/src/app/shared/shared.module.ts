@@ -1,16 +1,17 @@
-import { RouterModule } from '@angular/router';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbDropdownModule, NgbPaginationModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { SectionHeaderComponent } from './components/section-header/section-header.component';
 import { OrderTotalsComponent } from './components/order-totals/order-totals.component'
 import { TextInputComponent } from './components/text-input/text-input.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TextInputComponent } from './components/text-input/text-input.component
     PaginationComponent,
     SectionHeaderComponent,
     OrderTotalsComponent,
-    TextInputComponent
+    TextInputComponent,
+    StepperComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { TextInputComponent } from './components/text-input/text-input.component
     BreadcrumbModule,
      ReactiveFormsModule,
      NgbDropdownModule,
-     NgbCarouselModule
+     NgbCarouselModule,
+     CdkStepperModule
   ],
   exports: [
     NavbarComponent,
@@ -39,7 +42,8 @@ import { TextInputComponent } from './components/text-input/text-input.component
     ReactiveFormsModule,
     TextInputComponent,
     NgbDropdownModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    StepperComponent,
   ]
 })
 export class SharedModule { }

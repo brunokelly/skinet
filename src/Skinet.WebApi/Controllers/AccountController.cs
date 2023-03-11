@@ -19,7 +19,7 @@ namespace Skinet.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCurrentUser()
         {
-            return Response(await _accountService.GetCurrentUserAsync(HttpContext.User));
+            return Response(await _accountService.GetCurrentUserAsync(User));
         }
 
         [Authorize]
@@ -33,14 +33,14 @@ namespace Skinet.WebApi.Controllers
         [HttpGet("address")]
         public async Task<IActionResult> GetUserAddress()
         {
-            return Response(await _accountService.GetUserAddressAsync(HttpContext.User));
+            return Response(await _accountService.GetUserAddressAsync(User));
         }
 
         [Authorize]
         [HttpPut("address")]
         public async Task<IActionResult> UpdateUserAddress(AddressRequest addressRequest)
         {
-            return Response(await _accountService.UpdateUserAddressAsync(HttpContext.User, addressRequest));
+            return Response(await _accountService.UpdateUserAddressAsync(User, addressRequest));
         }
 
 
