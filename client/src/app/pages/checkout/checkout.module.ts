@@ -10,6 +10,7 @@ import { CheckoutDeliveryComponent } from './pages/checkout-delivery/checkout-de
 import { CheckoutAddressComponent } from './pages/checkout-address/checkout-address.component';
 import { CheckoutPaymentComponent } from './pages/checkout-payment/checkout-payment.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
+import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-success.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     CheckoutReviewComponent,
     CheckoutDeliveryComponent,
     CheckoutAddressComponent,
-    CheckoutPaymentComponent
+    CheckoutPaymentComponent,
+    CheckoutSuccessComponent
   ],
   imports: [
     CommonModule,
