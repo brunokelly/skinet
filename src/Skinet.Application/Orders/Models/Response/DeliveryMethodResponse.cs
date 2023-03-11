@@ -10,6 +10,7 @@ namespace Skinet.Application.Orders.Models.Response
 {
     public class DeliveryMethodResponse : BaseResponse
     {
+        public int Id { get; set; }
         public string ShortName { get; set; }
         public string DeliveryTime { get; set; }
         public string Description { get; set; }
@@ -21,6 +22,7 @@ namespace Skinet.Application.Orders.Models.Response
 
             return new DeliveryMethodResponse
             {
+                Id = deliveryMethod.Id,
                 DeliveryTime = deliveryMethod.DeliveryTime,
                 Description = deliveryMethod.Description,
                 Price = deliveryMethod.Price,

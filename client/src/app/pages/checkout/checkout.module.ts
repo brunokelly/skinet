@@ -1,3 +1,4 @@
+import { BasketModule } from './../basket/basket.module';
 import { StepperComponent } from './../../shared/components/stepper/stepper.component';
 import { CheckoutComponent } from './pages/checkout.component';
 import { SharedModule } from './../../shared/shared.module';
@@ -22,7 +23,8 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
     CommonModule,
     CheckoutRoutingModule,
     SharedModule,
-    CdkStepperModule
+    CdkStepperModule,
+    BasketModule
   ]
 })
 export class CheckoutModule { }
