@@ -6,6 +6,11 @@ export interface OrderToCreate {
   shipToAddress: Address;
 }
 
+export interface OrderResponse {
+     total: string;
+    items: Order[];
+}
+
 export interface Order {
   id: number;
   buyerEmail: string;
