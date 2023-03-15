@@ -15,6 +15,14 @@
 
         public string Id { get; private set; }
         public List<BasketItem> Items { get; set; } = new();
+        public int? DeliveryMethodId { get; private set; }
+        public string ClientSecret { get; private set; }
         public string? PaymentIntentId { get; private set; }
+
+        public void UpdatePaymentIntent(string paymentIntent, string clientSecret)
+        {
+            PaymentIntentId = paymentIntent;
+            ClientSecret = clientSecret;
+        }
     }
 }

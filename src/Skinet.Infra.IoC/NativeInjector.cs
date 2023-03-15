@@ -10,6 +10,7 @@ using Skinet.Application.Accounts.Services;
 using Skinet.Application.Accounts.Services.Token;
 using Skinet.Application.Basket.Services;
 using Skinet.Application.Orders.Services;
+using Skinet.Application.Payments;
 using Skinet.Application.Products.Services;
 using Skinet.Domain;
 using Skinet.Domain.Basket.Repository;
@@ -54,6 +55,7 @@ namespace Skinet.Infra.IoC
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IDeliveryMethodService, DeliveryMethodService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
         }
         public static void AddLocalUnitOfWork(this IServiceCollection services, IConfiguration configuration)

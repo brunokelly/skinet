@@ -1,6 +1,6 @@
 import { IBasketItem } from "./ibasket-item";
 
-export interface IBasket {
+export class IBasket {
     id: string;
     items: IBasketItem[];
     clientSecret?: string;

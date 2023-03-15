@@ -18,5 +18,10 @@
         public int Quantity { get; private set; }
         public string PictureUrl { get;  private set; }
         public string Brand { get; private set; }
+
+        public void UpdatePriceByProduct(ProductModel.Product product)
+        {
+            if (Price != product.Price)  Price = product.Price;
+        }
     }
 }

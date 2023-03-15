@@ -44,7 +44,7 @@ export class CheckoutPaymentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    loadStripe('pk_test_2PZ84pFKu2MddUgGDG521v9m00SlLWySIR').then((stripe) => {
+    loadStripe('pk_test_51MlMRsIfmNriC6TE5wy8NhNAqGiM7zYNBV5SaXFe5oHGv7b2WpOCKxrT8PuRpSdKIBQhjb1vkjs8SV9tzgjDZRtc00GsH6mtuH').then((stripe) => {
       this.stripe = stripe;
       const elements = stripe?.elements();
       if (elements) {
@@ -123,7 +123,7 @@ export class CheckoutPaymentComponent implements OnInit {
   private async createOrder(basket: IBasket | null) {
     if (!basket) throw new Error('Basket is null');
     const orderToCreate = this.getOrderToCreate(basket);
-    return firstValueFrom(this.checkoutService.createOrder(orderToCreate));
+    return this.checkoutService.createOrder(orderToCreate);
   }
 
   private getOrderToCreate(basket: IBasket): OrderToCreate {

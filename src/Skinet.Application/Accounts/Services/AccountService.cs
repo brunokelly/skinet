@@ -105,7 +105,7 @@ namespace Skinet.Application.Accounts.Services
 
             var userToLogin = await VerifyEmail(userResponse.Email);
 
-            var teste = await _signInManager.PasswordSignInAsync(userToLogin, loginRequest.Password, false, false);
+            //var teste = await _signInManager.PasswordSignInAsync(userToLogin, loginRequest.Password, false, false);
 
             return userResponse;
         }

@@ -22,11 +22,12 @@ export class BasketService {
   public basketTotalSource$ = this.basketTotalSource.asObservable();
   private shipping = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   getBasket(id: string) {
-    return this.http.get<Basket>(this.baseUrl + 'basket?id=' + id).subscribe({
+    return this.http.get<IBasket>(this.baseUrl + 'basket?id=' + id).subscribe({
       next: basket => {
         this.basketSource.next(basket);
         this.calculateTotals();
